@@ -22,7 +22,7 @@
     <ion-segment-button value="new">
       <ion-label (click)="setSegment('new')"> NEW </ion-label>
     </ion-segment-button>
-    <ion-segment-button value="1">
+    <ion-segment-button value="list">
       <ion-label (click)="setSegment('list')"> LIST </ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -113,8 +113,37 @@
       </ion-item>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'list'">
-      <ion-item> The other thing </ion-item>
-    </ion-list>
+
+    <ion-accordion-group *ngSwitchCase="'list'" #accordionGroup>
+      <ion-accordion
+          *ngFor="let laptop of laptopsService.laptops let i = index;"
+          [value]="i">
+
+        <!-- <ion-item-sliding slot="header">
+          <ion-item color="light">
+            <ion-label> {{ laptop.brand }} </ion-label>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger"> Delete </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding> -->
+
+        <ion-item slot="header" color="light">
+          <ion-label> {{ laptop.brand }} </ion-label>
+        </ion-item>
+
+        <div class="ion-padding" slot="content"
+            *ngFor="let x of accordion_helper(laptop) | keyvalue">
+            {{ x.key }}: {{ x.value }}
+        </div>
+
+        <div style="padding-right: 1rem; padding-bottom: 1rem; text-align: end;" slot="content">
+          <ion-button color="danger" (click)="accordionGroup.value = null; remove_laptop(i)"
+              size="small">
+            Delete
+          </ion-button>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
   </div>
 </ion-content>
