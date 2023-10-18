@@ -23,7 +23,8 @@ export class HomePage {
   GPU_OPTIONS = ['Apple M2 Pro', 'intel Iris', 'AMD Radeon', 'NVidia GeForce'];
   SCREEN_OPTIONS = [12, 13, 14, 15];
 
-  mDate : any;
+  mDate = new Date().toISOString();
+  initialDate = this.mDate;
 
 
   constructor() { }
@@ -34,7 +35,7 @@ export class HomePage {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  logM() { console.log(typeof this.mDate); }
+  formatISODate = (date : string) => date.substring(0, date.indexOf('T'));
 }
 
 
