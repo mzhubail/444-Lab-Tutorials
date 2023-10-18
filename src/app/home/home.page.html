@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Laptops
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,98 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large"> Laptops </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <!-- <div id="container">
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  </div> -->
+
+  <ion-segment [(ngModel)]="segment" value="list">
+    <ion-segment-button value="new">
+      <ion-label (click)="setSegment('new')"> NEW </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label (click)="setSegment('list')"> LIST </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+    <ion-list *ngSwitchCase="'new'">
+      <ion-item>
+        <ion-input label="Brand:" placeholder="Enter laptop brand" [(ngModel)]="laptop.brand"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select interface="action-sheet" label="CPU:" placeholder="Select Processor"
+            [(ngModel)]="laptop.cpu">
+          <ion-select-option
+              *ngFor="let cpu of CPU_OPTIONS"
+              [value]="cpu">
+            {{ capitalize(cpu) }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select interface="action-sheet" label="GPU:" placeholder="Select Graphics"
+            [(ngModel)]="laptop.gpu">
+          <ion-select-option
+              *ngFor="let gpu of GPU_OPTIONS"
+              [value]="gpu">
+            {{ capitalize(gpu) }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-range [(ngModel)]="laptop.ram" [label]="'Ram: ' + laptop.ram"
+            [pin]="true" [min]="0" [max]="16" value="0">
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-range [(ngModel)]="laptop.weight" [label]="'Weight: ' + laptop.weight"
+            [pin]="true" [min]="0" [max]="3" step="0.5" value="0">
+        </ion-range>
+      </ion-item>
+      <ion-item style="display: flex; flex-direction: row; justify-content: space-between;">
+        <ion-label> Screen size: </ion-label>
+        <ion-radio-group style="width: 50%;" [value]="SCREEN_OPTIONS[0]" [(ngModel)]="laptop.screen">
+          <ion-radio *ngFor="let scr of SCREEN_OPTIONS" [value]="scr"
+              justify="end">
+            {{ scr }} inches
+          </ion-radio> <br />
+        </ion-radio-group>
+      </ion-item>
+
+      <ion-item>
+        <ion-toggle [(ngModel)]="laptop.storage"> HDD: </ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="laptop.os"> OS: </ion-toggle>
+      </ion-item>
+
+
+      <ion-item> <ion-label> Manufacturing Date: </ion-label> </ion-item>
+      <!-- <ion-item class="ion-text-wrap" style="display: flex; flex-direction: column;"> -->
+      <ion-item>
+        <!-- <ion-label> Manfacturing date: </ion-label> -->
+        <ion-datetime style="margin: 0 auto;" [(ngModel)]="mDate"> Manfacturing year </ion-datetime>
+        <!-- <ion-picker></ion-picker> -->
+
+        <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime" [(ngModel)]="m"></ion-datetime>
+          </ng-template>
+        </ion-modal> -->
+      </ion-item>
+
+    <!-- <ion-item> <ion-button (click)="logM()">Log M</ion-button> </ion-item> -->
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'list'">
+      <ion-item> The other thing </ion-item>
+    </ion-list>
   </div>
 </ion-content>

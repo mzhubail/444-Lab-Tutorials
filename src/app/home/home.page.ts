@@ -6,7 +6,46 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  segment = 'new';
+  laptop: Laptop = {
+    brand: '',
+    cpu: '',
+    gpu: '',
+    ram: 0,
+    weight: 0,
+    screen: 0,
+    storage: false,
+    os: false,
+    manuDate: new Date(),
+  };
 
-  constructor() {}
+  CPU_OPTIONS = ['Intel i7', 'Intel i5', 'Intel i3', 'AMD',];
+  GPU_OPTIONS = ['Apple M2 Pro', 'intel Iris', 'AMD Radeon', 'NVidia GeForce'];
+  SCREEN_OPTIONS = [12, 13, 14, 15];
 
+  mDate : any;
+
+
+  constructor() { }
+
+  setSegment(segment: string) { this.segment = segment; }
+
+  capitalize(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  logM() { console.log(typeof this.mDate); }
+}
+
+
+interface Laptop {
+  brand: string,
+  cpu: string,
+  gpu: string,
+  ram: number,
+  weight: number,
+  screen: number,
+  storage: boolean,
+  os: boolean,
+  manuDate: Date,
 }
