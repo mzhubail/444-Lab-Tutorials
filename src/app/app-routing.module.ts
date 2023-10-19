@@ -16,6 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./brand/brand.module').then( m => m.BrandPageModule)
   },
   {
+    path: 'detail',
+    loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
     path: 'add-laptop',
     loadChildren: () => import('./add-laptop/add-laptop.module').then( m => m.AddLaptopPageModule)
   },
