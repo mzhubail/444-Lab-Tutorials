@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar [color]="settingsService.barColor">
     <ion-title> Home </ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button fill="clear" routerLink="/home"> Home </ion-button>
+      <ion-button fill="clear" routerLink="/brand"> Brand </ion-button>
+      <ion-button fill="clear" routerLink="/settings"> Settings </ion-button>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -13,11 +18,11 @@
 
   <ion-button expand="block"> Home </ion-button>
 
-  <ion-button expand="block"> Brand </ion-button>
+  <ion-button expand="block" routerLink="/brand"> Brand </ion-button>
 
   <ion-button expand="block"> Detail </ion-button>
 
-  <ion-button expand="block"> Settings </ion-button>
+  <ion-button expand="block" routerLink="/settings"> Settings </ion-button>
 
   <ion-button expand="block" (click)="displayLaptopsCount()"> Info </ion-button>
 
