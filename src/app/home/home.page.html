@@ -13,10 +13,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div> -->
 
   <ion-segment [(ngModel)]="segment" value="list">
     <ion-segment-button value="new">
@@ -26,6 +22,7 @@
       <ion-label (click)="setSegment('list')"> LIST </ion-label>
     </ion-segment-button>
   </ion-segment>
+
 
   <div [ngSwitch]="segment">
     <ion-list *ngSwitchCase="'new'">
@@ -92,14 +89,14 @@
               <ion-toolbar>
                 <ion-title> Manufacturing date </ion-title>
                 <ion-buttons slot="end">
-                  <ion-button (click)="modal.dismiss()">Close</ion-button>
+                  <ion-button (click)="modal.dismiss()"> Continue </ion-button>
                 </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content>
               <ion-datetime style="margin: 0 auto; margin-top: 2rem;"
                   [(ngModel)]="mDate" presentation="date"
-                  [min]="initialDate">
+                  [max]="initialDate">
               </ion-datetime>
             </ion-content>
           </ng-template>
@@ -107,43 +104,50 @@
       </ion-item>
 
       <ion-item>
-        <ion-button color="primary" size="default" (click)="add_laptop()">
+        <ion-button color="primary" size="default" (click)="addLaptop()">
           Add
         </ion-button>
       </ion-item>
     </ion-list>
 
 
-    <ion-accordion-group *ngSwitchCase="'list'" #accordionGroup>
-      <ion-accordion
-          *ngFor="let laptop of laptopsService.laptops let i = index;"
-          [value]="i">
+    <div *ngSwitchCase="'list'">
+      <ion-accordion-group #accordionGroup *ngIf="this.laptopsService.laptops.length != 0">
+        <ion-accordion
+            *ngFor="let laptop of laptopsService.laptops let i = index;"
+            [value]="i">
 
-        <!-- <ion-item-sliding slot="header">
-          <ion-item color="light">
+          <!-- Using sliding item makes the accordion icon disappear -->
+          <!-- <ion-item-sliding slot="header">
+            <ion-item color="light">
+              <ion-label> {{ laptop.brand }} </ion-label>
+            </ion-item>
+            <ion-item-options>
+              <ion-item-option color="danger"> Delete </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding> -->
+
+          <ion-item slot="header" color="light">
             <ion-label> {{ laptop.brand }} </ion-label>
           </ion-item>
-          <ion-item-options>
-            <ion-item-option color="danger"> Delete </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding> -->
 
-        <ion-item slot="header" color="light">
-          <ion-label> {{ laptop.brand }} </ion-label>
-        </ion-item>
+          <div class="ion-padding" slot="content"
+              *ngFor="let x of accordion_helper(laptop) | keyvalue">
+              {{ x.key }}: {{ x.value }}
+          </div>
 
-        <div class="ion-padding" slot="content"
-            *ngFor="let x of accordion_helper(laptop) | keyvalue">
-            {{ x.key }}: {{ x.value }}
-        </div>
-
-        <div style="padding-right: 1rem; padding-bottom: 1rem; text-align: end;" slot="content">
-          <ion-button color="danger" (click)="accordionGroup.value = null; remove_laptop(i)"
-              size="small">
-            Delete
-          </ion-button>
-        </div>
-      </ion-accordion>
-    </ion-accordion-group>
+          <div style="padding-right: 1rem; padding-bottom: 1rem; text-align: end;" slot="content">
+            <!-- Accordion null is here so that the when an element is deleted the accordion is left with no element open -->
+            <ion-button color="danger" (click)="accordionGroup.value = null; removeLaptop(i)"
+                size="small">
+              Delete
+            </ion-button>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+      <div class="ion-padding" *ngIf="this.laptopsService.laptops.length == 0">
+        No Laptops are stored
+      </div>
+    </div>
   </div>
 </ion-content>

@@ -13,14 +13,14 @@ export class HomePage {
   SCREEN_OPTIONS = [12, 13, 14, 15];
   segment = 'new';
 
-  laptop: Laptop = this.laptopsService.empty_laptop();
+  laptop: Laptop = this.laptopsService.emptyLaptop();
 
   mDate = new Date().toISOString();
   initialDate = this.mDate;
 
 
   async ngOnInit() {
-    this.laptopsService.load_saved_laptops();
+    this.laptopsService.loadSavedLaptop();
   }
 
   constructor(
@@ -30,19 +30,14 @@ export class HomePage {
 
   setSegment(segment: string) { this.segment = segment; }
 
-  capitalize = (string: string) =>
-    string.charAt(0).toUpperCase() + string.slice(1);
-
-  formatISODate = (date : string) => date.substring(0, date.indexOf('T'));
-
-  async add_laptop() {
+  async addLaptop() {
     var d = new Date(this.mDate);
     this.laptop.manuDate = d;
 
-    this.laptopsService.add_laptop(this.laptop);
+    this.laptopsService.addLaptop(this.laptop);
 
     // Create new laptop
-    this.laptop = this.laptopsService.empty_laptop();
+    this.laptop = this.laptopsService.emptyLaptop();
 
     // Success alert
     var alert = await this.alertController.create({
@@ -54,6 +49,10 @@ export class HomePage {
     alert.present();
   }
 
+  removeLaptop = (index: number) => this.laptopsService.removeLaptop(index);
+
+
+  /* Helper functions for view */
   accordion_helper = (l: Laptop) => <any>{
     'CPU': l.cpu == '' ? 'NA' : l.cpu,
     'GPU': l.gpu == '' ? 'NA' : l.gpu,
@@ -68,5 +67,9 @@ export class HomePage {
     ),
   };
 
-  remove_laptop = (index: number) => this.laptopsService.remove_laptop(index);
+  capitalize = (string: string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
+  formatISODate = (date : string) => date.substring(0, date.indexOf('T'));
+
 }

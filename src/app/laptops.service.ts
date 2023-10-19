@@ -22,7 +22,7 @@ export class LaptopsService {
 
   constructor() { }
 
-  empty_laptop = () => <Laptop>{
+  emptyLaptop = () => <Laptop>{
     brand: '',
     cpu: '',
     gpu: '',
@@ -34,24 +34,22 @@ export class LaptopsService {
     manuDate: new Date(),
   };
 
-  async add_laptop(l : Laptop) {
+  async addLaptop(l: Laptop) {
     this.laptops.push(l);
-    this.update_laptops_storage();
+    this.updateLaptopsStorage();
   }
 
-  async load_saved_laptops() {
+  async loadSavedLaptop() {
     const { value } = await Preferences.get({ key: this.LAPTOPS_STORAGE });
     this.laptops = (value ? JSON.parse(value) : []) as Laptop[];
   }
 
-  // async remove_laptop(l: Laptop) {
-  async remove_laptop(index: number) {
-    // this.laptops.unshift(l);
+  async removeLaptop(index: number) {
     this.laptops.splice(index, 1);
-    this.update_laptops_storage();
+    this.updateLaptopsStorage();
   }
 
-  private update_laptops_storage() {
+  private updateLaptopsStorage() {
     return Preferences.set({
       key: this.LAPTOPS_STORAGE,
       value: JSON.stringify(this.laptops),
