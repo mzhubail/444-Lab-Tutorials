@@ -49,6 +49,8 @@ export class LaptopsService {
     this.updateLaptopsStorage();
   }
 
+  laptopsCount = () => this.laptops.length;
+
   private updateLaptopsStorage() {
     return Preferences.set({
       key: this.LAPTOPS_STORAGE,

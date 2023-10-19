@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'add-laptop',
+    loadChildren: () => import('./add-laptop/add-laptop.module').then( m => m.AddLaptopPageModule)
+  },
 ];
 
 @NgModule({
