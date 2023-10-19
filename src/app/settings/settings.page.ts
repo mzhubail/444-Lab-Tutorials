@@ -15,4 +15,8 @@ export class SettingsPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillLeave() {
+    this.settingsService.updateBarColor();
+  }
+
 }
