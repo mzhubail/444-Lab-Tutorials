@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Detail</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- id: {{ id }} -->
+  <div style="display: flex; justify-content: center;">
+    <img style="max-width: 400px;" [src]="laptop.image" alt="">
+  </div>
+
+  <div class="ion-padding">
+    <h3> {{ laptop.brand }}</h3>
+
+    <div class="ion-padding" slot="content" *ngFor="let x of accordion_helper(laptop) | keyvalue">
+      {{ x.key }}: {{ x.value }}
+    </div>
+
+    <div style="display: flex; flex-direction: row-reverse;">
+      <ion-button routerLink="/brand" color="danger" size="small"> Close </ion-button>
+    </div>
+
+  </div>
+</ion-content>
