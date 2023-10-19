@@ -12,6 +12,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'brand',
+    loadChildren: () => import('./brand/brand.module').then( m => m.BrandPageModule)
+  },
+  {
     path: 'add-laptop',
     loadChildren: () => import('./add-laptop/add-laptop.module').then( m => m.AddLaptopPageModule)
   },

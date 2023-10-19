@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Brand</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Brand</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngFor="let laptop of laptopsService.laptops; let i=index">
+    <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
+    <img alt="Silhouette of mountains" [src]="laptop.image" />
+    <ion-card-header>
+      <ion-card-title> {{ laptop.brand }} </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      CPU: {{ laptop.cpu }} <br>
+      RAM: {{ laptop.ram }}
+    </ion-card-content>
+
+    <ion-button fill="clear"> View Detail </ion-button>
+  </ion-card>
+</ion-content>
