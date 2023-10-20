@@ -9,7 +9,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-laptop-card *ngFor="let laptop of laptopsService.laptops; let i=index"
-      [laptop]="laptop" [id]="i">
-  </app-laptop-card>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <app-laptop-card *ngFor="let laptop of laptopsService.laptops; let i=index"
+        [laptop]="laptop" [id]="i">
+    </app-laptop-card>
+  </div>
 </ion-content>
