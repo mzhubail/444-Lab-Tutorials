@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LaptopsService } from '../laptops.service';
-import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-brand',
@@ -11,7 +10,6 @@ export class BrandPage implements OnInit {
 
   constructor(
     public laptopsService: LaptopsService,
-    public settingsService: SettingsService,
   ) { }
 
   async ngOnInit() {

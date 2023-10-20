@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { BrandPageRoutingModule } from './brand-routing.module';
 
 import { BrandPage } from './brand.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BrandPageRoutingModule
+    BrandPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [BrandPage]
 })

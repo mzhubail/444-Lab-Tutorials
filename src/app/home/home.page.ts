@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Laptop, LaptopsService } from '../laptops.service';
-import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +17,6 @@ export class HomePage {
   constructor(
     public laptopsService: LaptopsService,
     public alertController: AlertController,
-    public settingsService: SettingsService,
   ) { }
 
   async displayLaptopsCount() {

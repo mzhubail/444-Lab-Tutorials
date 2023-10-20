@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Laptop, LaptopsService } from '../laptops.service';
-import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-detail',
@@ -15,7 +14,6 @@ export class DetailPage implements OnInit {
     public activatedRoute: ActivatedRoute,
     public router: Router,
     public laptopsService: LaptopsService,
-    public settingsService: SettingsService,
   ) { }
 
   ngOnInit() {

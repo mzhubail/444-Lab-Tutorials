@@ -1,15 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar [color]="settingsService.barColor">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Brand</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" routerLink="/home"> Home </ion-button>
-      <ion-button fill="clear" routerLink="/brand"> Brand </ion-button>
-      <ion-button fill="clear" routerLink="/settings"> Settings </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+  <app-toolbar title="Brand"></app-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -19,18 +9,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card *ngFor="let laptop of laptopsService.laptops; let i=index">
-    <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
-    <img alt="Silhouette of mountains" [src]="laptop.image" />
-    <ion-card-header>
-      <ion-card-title> {{ laptop.brand }} </ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      CPU: {{ laptop.cpu }} <br>
-      RAM: {{ laptop.ram }}
-    </ion-card-content>
-
-    <ion-button fill="clear" [routerLink]="'/detail/' + i"> View Details </ion-button>
-  </ion-card>
+  <app-laptop-card *ngFor="let laptop of laptopsService.laptops; let i=index"
+      [laptop]="laptop" [id]="i">
+  </app-laptop-card>
 </ion-content>

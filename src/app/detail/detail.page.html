@@ -1,15 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar [color]="settingsService.barColor">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Detail</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" routerLink="/home"> Home </ion-button>
-      <ion-button fill="clear" routerLink="/brand"> Brand </ion-button>
-      <ion-button fill="clear" routerLink="/settings"> Settings </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+  <app-toolbar title="Details"></app-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
