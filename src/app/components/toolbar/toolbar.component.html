@@ -1,0 +1,11 @@
+<ion-toolbar [color]="settingsService.barColor">
+  <ion-buttons slot="start">
+    <ion-back-button *ngIf="title.toLowerCase() != 'home'"></ion-back-button>
+  </ion-buttons>
+  <ion-title> {{ title }} </ion-title>
+  <ion-buttons *ngIf="showNavButtons" slot="end">
+    <ion-button fill="clear" routerLink="/home"> Home </ion-button>
+    <ion-button fill="clear" routerLink="/brand"> Brand </ion-button>
+    <ion-button fill="clear" routerLink="/settings"> Settings </ion-button>
+  </ion-buttons>
+</ion-toolbar>
