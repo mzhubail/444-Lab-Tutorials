@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Laptop, LaptopsService } from '../laptops.service';
+import { Laptop, LaptopsService } from '../services/laptops.service';
 
 @Component({
   selector: 'app-detail',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Laptop, LaptopsService } from '../laptops.service';
+import { Laptop, LaptopsService } from '../services/laptops.service';
 
 @Component({
   selector: 'app-add-laptop',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Laptop } from 'src/app/laptops.service';
+import { Laptop } from 'src/app/services/laptops.service';
 
 @Component({
   selector: 'app-laptop-card',
