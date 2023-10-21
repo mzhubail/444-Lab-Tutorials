@@ -45,7 +45,7 @@ export class DetailPage implements OnInit {
     // 'manuDate': this.formatISODate(
     //   l.manuDate.toString()
     // ),
-    'manuDate': l.manuDate.toDateString(),
+    'manuDate': this.formatISODate(l.manuDate),
   };
 
   formatISODate = (date : string) => date.substring(0, date.indexOf('T'));

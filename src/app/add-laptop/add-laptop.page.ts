@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Laptop, LaptopsService } from '../services/laptops.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-laptop',
@@ -14,10 +15,10 @@ export class AddLaptopPage implements OnInit {
   SCREEN_OPTIONS = [12, 13, 14, 15];
   segment = 'new';
 
-  laptop: Laptop = this.laptopsService.emptyLaptop();
-
   mDate = new Date().toISOString();
   initialDate = this.mDate;
+
+  laptopForm;
 
 
   async ngOnInit() {
@@ -26,18 +27,43 @@ export class AddLaptopPage implements OnInit {
   constructor(
     private alertController: AlertController,
     public laptopsService: LaptopsService,
-  ) { }
+    public formBuilder: FormBuilder,
+  ) {
+    this.laptopForm = this.formBuilder.group({
+      brand: ['', Validators.required],
+      cpu: ['', Validators.required],
+      gpu: ['', Validators.required],
+      ram: [0, Validators.required],
+      screen: [this.SCREEN_OPTIONS[0], Validators.required],
+      weight: [0, Validators.required],
+      os: [true, Validators.required],
+      storage: [true, Validators.required],
+      manuDate: [new Date().toISOString(), Validators.required],
+    });
+  }
+
+  logForm = () => console.log(this.laptopForm);
 
   setSegment(segment: string) { this.segment = segment; }
 
   async addLaptop() {
-    var d = new Date(this.mDate);
-    this.laptop.manuDate = d;
+    if (!this.laptopForm.valid)
+      return console.warn(this.laptopForm.value);;
 
-    this.laptopsService.addLaptop(this.laptop);
-
-    // Create new laptop
-    this.laptop = this.laptopsService.emptyLaptop();
+    // Create and add laptop
+    var l: Laptop = {
+      brand: this.laptopForm.controls.brand.value!,
+      cpu: this.laptopForm.controls.cpu.value!,
+      gpu: this.laptopForm.controls.gpu.value!,
+      ram: Number(this.laptopForm.controls.ram.value!),
+      screen: Number(this.laptopForm.controls.screen.value!),
+      os: this.laptopForm.controls.os.value!,
+      weight: Number(this.laptopForm.controls.weight.value!),
+      storage: this.laptopForm.controls.storage.value!,
+      manuDate: this.laptopForm.controls.manuDate.value!,
+      image: '',
+    }
+    this.laptopsService.addLaptop(l);
 
     // Success alert
     var alert = await this.alertController.create({
@@ -47,6 +73,7 @@ export class AddLaptopPage implements OnInit {
       keyboardClose: true,
     });
     alert.present();
+    this.laptopForm.reset();
   }
 
 

@@ -20,14 +20,15 @@
   </ion-segment>
 
 
-  <div [ngSwitch]="segment">
+  <form [ngSwitch]="segment" [formGroup]="laptopForm">
     <ion-list *ngSwitchCase="'new'">
       <ion-item>
-        <ion-input label="Brand:" placeholder="Enter laptop brand" [(ngModel)]="laptop.brand"></ion-input>
+        <ion-input label="Brand:" placeholder="Enter laptop brand"
+            formControlName="brand"></ion-input>
       </ion-item>
       <ion-item>
         <ion-select interface="action-sheet" label="CPU:" placeholder="Select Processor"
-            [(ngModel)]="laptop.cpu">
+            formControlName="cpu">
           <ion-select-option
               *ngFor="let cpu of CPU_OPTIONS"
               [value]="cpu">
@@ -37,7 +38,7 @@
       </ion-item>
       <ion-item>
         <ion-select interface="action-sheet" label="GPU:" placeholder="Select Graphics"
-            [(ngModel)]="laptop.gpu">
+            formControlName="gpu">
           <ion-select-option
               *ngFor="let gpu of GPU_OPTIONS"
               [value]="gpu">
@@ -46,18 +47,19 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-range [(ngModel)]="laptop.ram" [label]="'Ram: ' + laptop.ram"
+        <ion-range formControlName="ram" [label]="'Ram: ' + (laptopForm.controls.ram.value ?? '')"
             [pin]="true" [min]="0" [max]="16" value="0">
         </ion-range>
       </ion-item>
       <ion-item>
-        <ion-range [(ngModel)]="laptop.weight" [label]="'Weight: ' + laptop.weight"
+        <ion-range  formControlName="weight" [label]="'Weight: ' + (laptopForm.controls.weight.value ?? '')"
             [pin]="true" [min]="0" [max]="3" step="0.5" value="0">
         </ion-range>
       </ion-item>
       <ion-item style="display: flex; flex-direction: row; justify-content: space-between;">
-        <ion-label> Screen size: </ion-label>
-        <ion-radio-group style="width: 50%;" [value]="SCREEN_OPTIONS[0]" [(ngModel)]="laptop.screen">
+        <!-- <ion-label> Screen size: </ion-label> -->
+        <div class="container"> Screen size: </div>
+        <ion-radio-group style="width: 50%;" [value]="SCREEN_OPTIONS[0]" formControlName="screen">
           <ion-radio *ngFor="let scr of SCREEN_OPTIONS" [value]="scr"
               justify="end">
             {{ scr }} inches
@@ -66,16 +68,17 @@
       </ion-item>
 
       <ion-item>
-        <ion-toggle [(ngModel)]="laptop.storage"> HDD: </ion-toggle>
+        <ion-toggle formControlName="storage"> HDD: </ion-toggle>
       </ion-item>
       <ion-item>
-        <ion-toggle [(ngModel)]="laptop.os"> OS: </ion-toggle>
+        <ion-toggle formControlName="os"> OS: </ion-toggle>
       </ion-item>
 
       <ion-item>
         <ion-label> Manfacturing date: </ion-label>
 
         <ion-button id="datetime-picker" color="medium">
+          <!-- TODO: Fix this -->
           {{ mDate != initialDate ? formatISODate(mDate) : "Choose Date" }}
         </ion-button>
 
@@ -91,7 +94,7 @@
             </ion-header>
             <ion-content>
               <ion-datetime style="margin: 0 auto; margin-top: 2rem;"
-                  [(ngModel)]="mDate" presentation="date"
+                  formControlName="manuDate" presentation="date"
                   [max]="initialDate">
               </ion-datetime>
             </ion-content>
@@ -100,10 +103,27 @@
       </ion-item>
 
       <ion-item>
-        <ion-button color="primary" size="default" (click)="addLaptop()">
+        <ion-button color="primary" size="default" (click)="addLaptop()" [disabled]="laptopForm.invalid">
           Add
         </ion-button>
+        <ion-button color="danger" size="small" (click)="laptopForm.reset()">
+        <!-- <ion-button color="danger" size="small" (click)="laptopForm.patchValue(laptopsService.emptyLaptop())"> -->
+          Reset
+        </ion-button>
       </ion-item>
+
+      <div class="container">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let ctrl of laptopForm.controls | keyvalue">
+            <!-- {{ laptopForm.controls.brand.value }} -->
+            {{ ctrl.key }}: {{ ctrl.value.value }}
+          </li>
+          <button type="button" class="list-group-item list-group-item-action" (click)="logForm()">
+            {{ laptopForm.status }}
+          </button>
+        </ul>
+      </div>
+
     </ion-list>
 
 
@@ -145,5 +165,5 @@
         No Laptops are stored
       </div>
     </div>
-  </div>
+  </form>
 </ion-content>
