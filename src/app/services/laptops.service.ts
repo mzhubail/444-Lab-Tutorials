@@ -18,8 +18,10 @@ export interface Laptop {
   providedIn: 'root'
 })
 export class LaptopsService {
-  // public laptops: Laptop[] = [];
-  public laptops: Laptop[] = [
+
+  public LAPTOPS_STORAGE = 'laptops';
+
+  public SAMPLE_LAPTOPS: Laptop[] = [
     {
       brand: "Dell", cpu: "intel i7", gpu: "Nvidia RX3070", image: "assets/laptops/l1.jpg",
       manuDate: new Date(), os: true, ram: 16, screen: 14, storage: false, weight: 1.2,
@@ -37,11 +39,17 @@ export class LaptopsService {
       manuDate: new Date(), os: false, ram: 4, screen: 8, storage: true, weight: 3.2,
     },
   ];
-  public LAPTOPS_STORAGE = 'laptops';
 
-  constructor() { }
+  // Current laptops
+  public laptops!: Laptop[];
 
-  emptyLaptop = () => <Laptop>{
+
+  constructor() {
+    this.loadSavedLaptop();
+  }
+
+
+  emptyLaptop = () : Laptop => ({
     brand: '',
     cpu: '',
     gpu: '',
@@ -50,8 +58,9 @@ export class LaptopsService {
     screen: 0,
     storage: false,
     os: false,
+    image: '',
     manuDate: new Date(),
-  };
+  });
 
   async addLaptop(l: Laptop) {
     this.laptops.push(l);
@@ -59,8 +68,12 @@ export class LaptopsService {
   }
 
   async loadSavedLaptop() {
-    // const { value } = await Preferences.get({ key: this.LAPTOPS_STORAGE });
-    // this.laptops = (value ? JSON.parse(value) : []) as Laptop[];
+    const { value } = await Preferences.get({ key: this.LAPTOPS_STORAGE });
+    this.laptops = (value ? JSON.parse(value) : []) as Laptop[];
+
+    // Default to sample laptops if no laptops are in storage (or all laptops were deleted)
+    if (this.laptops.length == 0)
+      this.laptops = this.SAMPLE_LAPTOPS;
   }
 
   async removeLaptop(index: number) {
