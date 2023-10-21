@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AddLaptopPageRoutingModule } from './add-laptop-routing.module';
 
 import { AddLaptopPage } from './add-laptop.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddLaptopPageRoutingModule
+    AddLaptopPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [AddLaptopPage]
 })

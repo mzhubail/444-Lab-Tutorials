@@ -1,6 +1,6 @@
 <ion-card style="max-width: 500px;">
   <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
-  <img alt="Silhouette of mountains" [src]="laptop.image" />
+  <img alt="Laptop Picture" [src]="laptop.image ? laptop.image : 'assets/card-placeholder.png'" />
   <ion-card-header>
     <ion-card-title> {{ laptop.brand }} </ion-card-title>
   </ion-card-header>
