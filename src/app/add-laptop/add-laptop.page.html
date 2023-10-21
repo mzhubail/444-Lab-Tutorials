@@ -134,7 +134,7 @@
 
           <div style="padding-right: 1rem; padding-bottom: 1rem; text-align: end;" slot="content">
             <!-- Accordion null is here so that the when an element is deleted the accordion is left with no element open -->
-            <ion-button color="danger" (click)="accordionGroup.value = null; removeLaptop(i)"
+            <ion-button color="danger" (click)="accordionGroup.value = null; laptopsService.removeLaptop(i)"
                 size="small">
               Delete
             </ion-button>

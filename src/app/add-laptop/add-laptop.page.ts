@@ -21,7 +21,6 @@ export class AddLaptopPage implements OnInit {
 
 
   async ngOnInit() {
-    this.laptopsService.loadSavedLaptop();
   }
 
   constructor(
@@ -49,8 +48,6 @@ export class AddLaptopPage implements OnInit {
     });
     alert.present();
   }
-
-  removeLaptop = (index: number) => this.laptopsService.removeLaptop(index);
 
 
   /* Helper functions for view */
