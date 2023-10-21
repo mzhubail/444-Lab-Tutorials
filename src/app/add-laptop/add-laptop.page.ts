@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Laptop, LaptopsService } from '../services/laptops.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-laptop',
@@ -30,7 +30,7 @@ export class AddLaptopPage implements OnInit {
     public formBuilder: FormBuilder,
   ) {
     this.laptopForm = this.formBuilder.group({
-      brand: ['', Validators.required],
+      brand: ['', [Validators.required, Validators.minLength(3)]],
       cpu: ['', Validators.required],
       gpu: ['', Validators.required],
       ram: [0, Validators.required],
@@ -40,9 +40,14 @@ export class AddLaptopPage implements OnInit {
       storage: [true, Validators.required],
       manuDate: [new Date().toISOString(), Validators.required],
     });
+    this.logForm();
   }
 
-  logForm = () => console.log(this.laptopForm);
+  logForm = () => Object.entries(this.laptopForm.controls).forEach(([name, control]) => {
+    if (control.errors !== null)
+      // console.log({name, errors: control.errors})
+      console.log(this.convertErrorsToMessage(name, control.errors));
+  });
 
   setSegment(segment: string) { this.segment = segment; }
 
@@ -96,5 +101,27 @@ export class AddLaptopPage implements OnInit {
     string.charAt(0).toUpperCase() + string.slice(1);
 
   formatISODate = (date : string) => date.substring(0, date.indexOf('T'));
+
+
+  convertErrorsToMessage(name: string, errors: ValidationErrors) {
+    // console.log({name, errors: errors})
+    if (errors == null)
+      return;
+    var entries = Object.entries(errors);
+    if (entries.length == 0)
+      return;
+    var [errorName, errorContent] = entries[0];
+    // console.log(errorName, errorContent);
+    switch (errorName) {
+      case 'required':
+        return `${name} is required`;
+      case 'minlength':
+        return `${name} has to be at least ${errorContent.requiredLength} characters`;
+
+      default:
+        console.warn(`${errorName} was not catched`, errorContent);
+        return `${name} is not valid`;
+    }
+  }
 
 }
