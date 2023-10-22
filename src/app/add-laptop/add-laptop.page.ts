@@ -19,6 +19,7 @@ export class AddLaptopPage implements OnInit {
   initialDate = this.mDate;
 
   laptopForm;
+  wasSubmitted = false;
 
 
   async ngOnInit() {
@@ -52,6 +53,8 @@ export class AddLaptopPage implements OnInit {
   setSegment(segment: string) { this.segment = segment; }
 
   async addLaptop() {
+    this.wasSubmitted = true;
+
     if (!this.laptopForm.valid)
       return console.warn(this.laptopForm.value);;
 

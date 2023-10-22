@@ -2,9 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 class BaseComponent {
+  name!: string;
+  fc!: FormControl;
   wasSubmitted!: boolean;
 
-  convertErrorsToMessage(name: string, errors: ValidationErrors | null) {
+  private convertErrorsToMessage(name: string, errors: ValidationErrors | null) : string|undefined {
     // console.log({name, errors: errors})
     if (errors == null)
       return;
@@ -25,7 +27,13 @@ class BaseComponent {
     }
   }
 
-  validCondition = (fc: FormControl) => fc.invalid && (fc.dirty || this.wasSubmitted);
+  public errorMessages() {
+    if (this.fc.dirty || this.wasSubmitted)
+      return this.convertErrorsToMessage(this.name, this.fc.errors);
+    return;
+  }
+
+  public validCondition = (fc: FormControl) => fc.invalid && (fc.dirty || this.wasSubmitted);
 }
 
 @Component({
@@ -35,15 +43,15 @@ class BaseComponent {
       <label [for]="name" class="form-label"> {{ label }} </label>
       <input type="email" class="form-control" [id]="name" [name]="name" [formControl]="fc"
           autocomplete="off" spellcheck="false" [class.is-invalid]="validCondition(fc)">
-      {{ convertErrorsToMessage(name, fc.errors) }}
+      {{ errorMessages() }}
     </div>
   `,
 })
 export class InputComponent extends BaseComponent implements OnInit {
   @Input() label = 'defaultLabel';
-  @Input() name = 'defaultName';
-  @Input() fc!: FormControl;
-  @Input() override wasSubmitted: boolean = false;
+  @Input() override name = 'defaultName';
+  @Input() override fc!: FormControl;
+  @Input() override wasSubmitted = false;
 
   ngOnInit() {
     this.name = this.label;

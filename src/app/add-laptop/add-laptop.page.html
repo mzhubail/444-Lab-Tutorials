@@ -19,11 +19,12 @@
     </ion-segment-button>
   </ion-segment>
 
-      <div class="container">
-        <x-input label="Brand" name="brand" [fc]="laptopForm.controls.brand"></x-input>
-        <x-input label="CPU" name="cpu" [fc]="laptopForm.controls.cpu"></x-input>
-        <x-input label="GPU" name="gpu" [fc]="laptopForm.controls.gpu"></x-input>
-      </div>
+      <form class="container" (ngSubmit)="addLaptop()">
+        <x-input label="Brand" name="brand" [fc]="laptopForm.controls.brand" [wasSubmitted]="wasSubmitted"></x-input>
+        <x-input label="CPU" name="cpu" [fc]="laptopForm.controls.cpu" [wasSubmitted]="wasSubmitted"></x-input>
+        <x-input label="GPU" name="gpu" [fc]="laptopForm.controls.gpu" [wasSubmitted]="wasSubmitted"></x-input>
+        <input type="submit" class="btn btn-primary" value="Submit">
+      </form>
 
   <form [ngSwitch]="segment" [formGroup]="laptopForm">
     <ion-list *ngSwitchCase="'new'">
