@@ -19,6 +19,11 @@
     </ion-segment-button>
   </ion-segment>
 
+      <div class="container">
+        <x-input label="Brand" name="brand" [fc]="laptopForm.controls.brand"></x-input>
+        <x-input label="CPU" name="cpu" [fc]="laptopForm.controls.cpu"></x-input>
+        <x-input label="GPU" name="gpu" [fc]="laptopForm.controls.gpu"></x-input>
+      </div>
 
   <form [ngSwitch]="segment" [formGroup]="laptopForm">
     <ion-list *ngSwitchCase="'new'">

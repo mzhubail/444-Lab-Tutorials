@@ -32,7 +32,7 @@ export class AddLaptopPage implements OnInit {
     this.laptopForm = this.formBuilder.group({
       brand: ['', [Validators.required, Validators.minLength(3)]],
       cpu: ['', Validators.required],
-      gpu: ['', Validators.required],
+      gpu: ['', [Validators.required, Validators.minLength(5)]],
       ram: [0, Validators.required],
       screen: [this.SCREEN_OPTIONS[0], Validators.required],
       weight: [0, Validators.required],
