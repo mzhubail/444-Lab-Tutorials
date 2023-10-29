@@ -6,7 +6,19 @@ import { Preferences } from '@capacitor/preferences';
 })
 export class SettingsService {
   COLOR_STORAGE = 'color';
-  barColor = '';
+  private _barColor = '';
+
+
+  get barColor() : string {
+    return this._barColor
+  }
+  set barColor(color: string) {
+    this._barColor = color
+    Preferences.set({
+      key: this.COLOR_STORAGE,
+      value: this._barColor,
+    });
+  }
 
   constructor() {
     this.loadSavedColor()
@@ -14,12 +26,6 @@ export class SettingsService {
 
   async loadSavedColor() {
     const { value } = await Preferences.get({ key: this.COLOR_STORAGE });
-    this.barColor = value ? value : '';
+    this._barColor = value ? value : '';
   }
-
-  updateBarColor = () =>
-    Preferences.set({
-      key: this.COLOR_STORAGE,
-      value: this.barColor,
-    });
 }
