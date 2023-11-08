@@ -19,13 +19,18 @@ export class DetailsPage implements OnInit {
     public devicesService : DevicesService,
   ) { }
 
-  subCategory: SubCategory = { name: 'Details', nav: [] };
+  subCategory!: SubCategory;
 
   async ngOnInit() {
     this.i = this.getParam('i'),
     this.j = this.getParam('j');
 
-    await this.devicesService.loadLaptops()
+    // Instead of retrieving data each time we visit the page, just ensure that
+    // the data has been already initialized
+    if (this.devicesService.data == null) {
+      this.navController.navigateForward('/home');
+      return;
+    }
     this.subCategory = this.devicesService.data[this.i].nav[this.j]
   }
 

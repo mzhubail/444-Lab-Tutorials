@@ -40,3 +40,13 @@
 
   </div>
 </ion-content>
+
+<ion-footer>
+  <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+    <ion-button style="width: 47%"> Save </ion-button>
+    <ion-button style="width: 47%" id="get-button"> Get </ion-button>
+    <ion-alert trigger="get-button" header="Where to get data from?"
+      message="Whould you like to get data from file or local storage" [buttons]="alertButtons">
+    </ion-alert>
+  </div>
+</ion-footer>
