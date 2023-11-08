@@ -9,6 +9,7 @@ import { DevicesService, SubCategory } from '../services/devices.service';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
+  public isEditable = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -16,19 +17,15 @@ export class DetailsPage implements OnInit {
     public devicesService : DevicesService,
   ) { }
 
-  i!: number;
-  j!: number;
   subCategory: SubCategory = { name: 'Details', nav: [] };
 
   async ngOnInit() {
-    this.i = this.getParam('i');
-    this.j = this.getParam('j');
-    // console.log(this.devicesService.data[this.i].nav[this.j])
-    await this.devicesService.data.then(data => {
-      this.subCategory = data[this.i].nav[this.j]
-    });
+    var i = this.getParam('i'),
+      j = this.getParam('j');
 
-    console.log(this.subCategory)
+    await this.devicesService.data.then(data => {
+      this.subCategory = data[i].nav[j]
+    });
   }
 
   getParam(name : string) {
