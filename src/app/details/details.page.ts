@@ -46,4 +46,13 @@ export class DetailsPage implements OnInit {
       // console.log(`To be saved`, this.devicesService.data[this.i].nav[this.j])
     }
   }
+
+  AddLaptop(devices_index: number) {
+    const device = this.subCategory.nav[devices_index];
+
+    device.nav.push(
+      {...device.nav[-1]}
+    );
+    console.log(this.subCategory)
+  }
 }

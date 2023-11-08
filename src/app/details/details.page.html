@@ -73,6 +73,10 @@
             </ion-item>
 
           </ion-list>
+
+          <div style="display: flex; flex-direction: row-reverse;" *ngIf="isEditable">
+            <ion-button size="small" (click)="AddLaptop(i)"> Add </ion-button>
+          </div>
         </div>
 
       </ion-accordion>
