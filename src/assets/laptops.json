@@ -1,0 +1,157 @@
+[
+  {
+    "name": "Computers",
+    "nav": [
+      {
+        "name": "Laptop",
+        "nav": [
+          {
+            "name": "Dell",
+            "nav": [
+              {
+                "cpu": "i7",
+                "ram": "8GB",
+                "storage": "1TB",
+                "screen": "13inch"
+              },
+              {
+                "cpu": "i5",
+                "ram": "16GB",
+                "storage": "2TB",
+                "screen": "15inch"
+              },
+              {
+                "cpu": "i5",
+                "ram": "16GB",
+                "storage": "1TB",
+                "screen": "14inch"
+              }
+            ]
+          },
+          {
+            "name": "HP",
+            "nav": [
+              {
+                "cpu": "i7",
+                "ram": "8GB",
+                "storage": "1TB",
+                "screen": "13inch"
+              },
+              {
+                "cpu": "i3",
+                "ram": "4GB",
+                "storage": "256GB",
+                "screen": "13inch"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Tablet",
+        "nav": [
+          {
+            "name": "iPad",
+            "nav": [
+              {
+                "cpu": "A10",
+                "ram": "8GB",
+                "storage": "1TB",
+                "screen": "10inch"
+              },
+              {
+                "cpu": "A11",
+                "ram": "8GB",
+                "storage": "1TB",
+                "screen": "11inch"
+              }
+            ]
+          },
+          {
+            "name": "Samsung",
+            "nav": [
+              {
+                "cpu": "Snapdragon",
+                "ram": "8GB",
+                "storage": "1TB",
+                "screen": "8inch"
+              },
+              {
+                "cpu": "Snapdragon",
+                "ram": "16GB",
+                "storage": "1TB",
+                "screen": "12inch"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Electronics",
+    "nav": [
+      {
+        "name": "Mobile Devices",
+        "nav": [
+          {
+            "name": "iphone",
+            "nav": [
+              {
+                "cpu": "A11",
+                "ram": "4GB",
+                "storage": "256GB",
+                "screen": "6inch"
+              },
+              {
+                "cpu": "A12",
+                "ram": "6GB",
+                "storage": "1TB",
+                "screen": "6.5inch"
+              }
+            ]
+          },
+          {
+            "name": "Samsung",
+            "nav": [
+              {
+                "cpu": "Snapdragon",
+                "ram": "8GB",
+                "storage": "1TB",
+                "screen": "6inch"
+              },
+              {
+                "cpu": "Snapdragon",
+                "ram": "12GB",
+                "storage": "1TB",
+                "screen": "7inch"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Television",
+        "nav": [
+          {
+            "name": "Sony",
+            "nav": [
+              {
+                "cpu": "Exynos",
+                "ram": "1GB",
+                "storage": "32GB",
+                "screen": "55inch"
+              },
+              {
+                "cpu": "Exynos",
+                "ram": "1GB",
+                "storage": "32GB",
+                "screen": "40inch"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

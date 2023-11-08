@@ -13,8 +13,30 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+  <div style="margin: 1rem;">
+    <ion-accordion-group>
+      <ion-accordion
+          *ngFor="let c of devicesService.data; let i = index"
+          [value]="c.name"
+          >
+        <ion-item slot="header" color="light">
+          <ion-label> {{ c.name | uppercase }} </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+
+          <ion-list>
+            <ion-item
+                *ngFor="let subC of c.nav; let j = index"
+                routerLink="details/{{i}},{{j}}"
+                >
+              {{ subC.name }}
+            </ion-item>
+          </ion-list>
+
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
   </div>
 </ion-content>
