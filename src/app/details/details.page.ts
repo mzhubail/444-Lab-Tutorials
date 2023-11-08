@@ -18,13 +18,16 @@ export class DetailsPage implements OnInit {
 
   i!: number;
   j!: number;
-  subCategory!: SubCategory;
+  subCategory: SubCategory = { name: 'Details', nav: [] };
 
-  ngOnInit() {
+  async ngOnInit() {
     this.i = this.getParam('i');
     this.j = this.getParam('j');
     // console.log(this.devicesService.data[this.i].nav[this.j])
-    this.subCategory = this.devicesService.data[this.i].nav[this.j];
+    await this.devicesService.data.then(data => {
+      this.subCategory = data[this.i].nav[this.j]
+    });
+
     console.log(this.subCategory)
   }
 

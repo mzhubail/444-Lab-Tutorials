@@ -29,15 +29,14 @@ export interface PartialDevice {
 })
 export class DevicesService {
   // TODO: remove !
-  data!: Category[];
+  data!: Promise<Category[]>;
 
   constructor() {
     this.loadLaptopsFromJSON()
   }
 
   async loadLaptopsFromJSON() {
-    fetch('/assets/laptops.json')
-      .then(res => res.json())
-      .then(res => this.data = res as Category[])
+    this.data = fetch('/assets/laptops.json')
+      .then(res => res.json()) as Promise<Category[]>
   }
 }

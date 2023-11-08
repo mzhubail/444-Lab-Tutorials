@@ -17,7 +17,7 @@
   <div style="margin: 1rem;">
     <ion-accordion-group>
       <ion-accordion
-          *ngFor="let c of devicesService.data; let i = index"
+          *ngFor="let c of data; let i = index"
           [value]="c.name"
           >
         <ion-item slot="header" color="light">
