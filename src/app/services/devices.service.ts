@@ -8,25 +8,19 @@ export interface Category {
 
 export interface SubCategory {
   name: string;
-  nav: Devices;
+  nav: Device[];
 }
 
-export interface Devices {
+export interface Device {
   name: string;
-  nav: PartialLaptop[]
+  nav: PartialDevice[]
 }
 
-export interface PartialLaptop {
-  Brand: String,
-  CPU: String,
-  GPU: String,
-  RAM: Number,
-  Weight: Number,
-  Screen: Number,
-  Storage: boolean,
-  OS: boolean,
-  Image: String,
-  ManuDate: Date
+export interface PartialDevice {
+  cpu: String,
+  ram: String,
+  storage: String,
+  screen: String,
 }
 
 

@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> {{ subCategory.name }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> {{ subCategory.name }} </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div style="margin: 1rem">
+
+
+    <ion-accordion-group>
+      <ion-accordion
+          *ngFor="let d of subCategory.nav; let i = index"
+          [value]="d.name"
+          >
+        <ion-item slot="header" color="light">
+          <ion-label> {{ d.name | uppercase }} </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+
+            <!-- <ion-item *ngFor="let p of d.nav; let j = index">
+              {{ p.cpu }}
+            </ion-item> -->
+
+        <ion-grid>
+          <ion-row *ngFor="let p of d.nav; let j = index">
+            <!-- <ion-col> CPU: {{ p.cpu }} </ion-col>
+            <ion-col> RAM: {{ p.ram }} </ion-col>
+            <ion-col> Screen: {{ p.screen }} </ion-col>
+            <ion-col> Storage: {{ p.storage }} </ion-col> -->
+            <ion-col *ngFor="let attr of p | keyvalue" size="6">
+              {{ attr.key | uppercase }}: {{ attr.value }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+  </div>
+
+</ion-content>
