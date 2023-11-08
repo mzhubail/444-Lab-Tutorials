@@ -10,6 +10,8 @@ import { DevicesService, SubCategory } from '../services/devices.service';
 })
 export class DetailsPage implements OnInit {
   public isEditable = false;
+  i: any;
+  j: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,21 +22,28 @@ export class DetailsPage implements OnInit {
   subCategory: SubCategory = { name: 'Details', nav: [] };
 
   async ngOnInit() {
-    var i = this.getParam('i'),
-      j = this.getParam('j');
+    this.i = this.getParam('i'),
+    this.j = this.getParam('j');
 
-    await this.devicesService.data.then(data => {
-      this.subCategory = data[i].nav[j]
-    });
+    await this.devicesService.loadLaptops()
+    this.subCategory = this.devicesService.data[this.i].nav[this.j]
   }
 
   getParam(name : string) {
     var _param = this.activatedRoute.snapshot.paramMap.get(name);
-    // console.log(_param);
     if (_param == null) {
       this.navController.navigateForward('/home');
     }
     var n = Number(_param);
     return n;
+  }
+
+  toggleEditable() {
+    this.isEditable = !this.isEditable;
+    if (!this.isEditable) {
+      this.devicesService.saveData()
+      // console.log(`Current`, this.subCategory)
+      // console.log(`To be saved`, this.devicesService.data[this.i].nav[this.j])
+    }
   }
 }

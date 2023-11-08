@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title> {{ subCategory.name }} </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="isEditable = !isEditable">
+      <ion-button (click)="toggleEditable()">
         {{ isEditable ? 'Save' : 'Editable' }}
       </ion-button>
     </ion-buttons>
@@ -34,17 +34,44 @@
 
         <div class="ion-padding" slot="content">
           <ion-list *ngFor="let p of d.nav; let j = index" style="margin-bottom: 1rem;">
-            <ion-item *ngFor="let attr of p | keyvalue" size="6">
 
+            <ion-item>
               <ion-label *ngIf="!isEditable">
-                {{ attr.key | uppercase }}: {{ attr.value }}
+                CPU: {{ p.cpu }}
               </ion-label>
-              <ion-input *ngIf="isEditable" label="{{ attr.key | uppercase }}:"
-                  [value]="attr.value" [(ngModel)]="attr.value"
+              <ion-input *ngIf="isEditable" label="CPU"
+                  [(ngModel)]="p.cpu"
                   >
               </ion-input>
-
             </ion-item>
+            <ion-item>
+              <ion-label *ngIf="!isEditable">
+                RAM: {{ p.ram }}
+              </ion-label>
+              <ion-input *ngIf="isEditable" label="RAM"
+                  [(ngModel)]="p.ram"
+                  >
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label *ngIf="!isEditable">
+                Storage: {{ p.storage }}
+              </ion-label>
+              <ion-input *ngIf="isEditable" label="Storage"
+                  [(ngModel)]="p.storage"
+                  >
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label *ngIf="!isEditable">
+                Screen: {{ p.screen }}
+              </ion-label>
+              <ion-input *ngIf="isEditable" label="Screen"
+                  [(ngModel)]="p.screen"
+                  >
+              </ion-input>
+            </ion-item>
+
           </ion-list>
         </div>
 

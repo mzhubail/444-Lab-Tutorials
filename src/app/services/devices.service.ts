@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 
 
 export interface Category {
@@ -28,15 +29,34 @@ export interface PartialDevice {
   providedIn: 'root'
 })
 export class DevicesService {
-  // TODO: remove !
-  data!: Promise<Category[]>;
+  readonly DEVICES_STORAGE = 'devices';
 
-  constructor() {
-    this.loadLaptopsFromJSON()
+  data!: Category[];
+
+  constructor() { }
+
+  async loadLaptops() {
+    const { value } = await Preferences.get({ key: this.DEVICES_STORAGE })
+
+    if (value == null) {
+      // console.log('No value in storage')
+      const fromFile = await fetch('/assets/laptops.json')
+        .then(res => res.json())
+
+      this.data = fromFile as Category[]
+      return;
+    }
+
+    // console.log(`found ${value} in storage`)
+    this.data = JSON.parse(value) as Category[]
   }
 
-  async loadLaptopsFromJSON() {
-    this.data = fetch('/assets/laptops.json')
-      .then(res => res.json()) as Promise<Category[]>
+  async saveData() {
+    // console.log(`Saving`)
+    // console.log(`Saving ${JSON.stringify(data)}`)
+    Preferences.set({
+      key: this.DEVICES_STORAGE,
+      value: JSON.stringify(this.data),
+    })
   }
 }

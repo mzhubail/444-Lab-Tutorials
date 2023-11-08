@@ -11,10 +11,10 @@ export class HomePage {
 
   constructor(
     public devicesService: DevicesService,
-  ) {
-    devicesService.data.then(data => {
-      this.data = data
-    })
-  }
+  ) { }
 
+  async ngOnInit() {
+    await this.devicesService.loadLaptops();
+    this.data = this.devicesService.data;
+  }
 }
