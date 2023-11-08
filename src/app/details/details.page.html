@@ -28,17 +28,19 @@
               {{ p.cpu }}
             </ion-item> -->
 
-        <ion-grid>
-          <ion-row *ngFor="let p of d.nav; let j = index">
-            <!-- <ion-col> CPU: {{ p.cpu }} </ion-col>
-            <ion-col> RAM: {{ p.ram }} </ion-col>
-            <ion-col> Screen: {{ p.screen }} </ion-col>
-            <ion-col> Storage: {{ p.storage }} </ion-col> -->
-            <ion-col *ngFor="let attr of p | keyvalue" size="6">
-              {{ attr.key | uppercase }}: {{ attr.value }}
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-item *ngFor="let p of d.nav; let j = index">
+          <ion-grid>
+            <ion-row>
+              <!-- <ion-col> CPU: {{ p.cpu }} </ion-col>
+                    <ion-col> RAM: {{ p.ram }} </ion-col>
+                    <ion-col> Screen: {{ p.screen }} </ion-col>
+                    <ion-col> Storage: {{ p.storage }} </ion-col> -->
+              <ion-col *ngFor="let attr of p | keyvalue" size="6">
+                {{ attr.key | uppercase }}: {{ attr.value }}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
 
 
         </div>
