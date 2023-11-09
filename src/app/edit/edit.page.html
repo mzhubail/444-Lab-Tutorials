@@ -1,13 +1,49 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>edit</ion-title>
+    <ion-title> Edit </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/home" routerDirection="back">
+        Close
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">edit</ion-title>
+      <ion-title size="large"> Edit </ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-select
+          label="Section:" interface="action-sheet"
+          [(ngModel)]="product.Section" (ionChange)="handleSectionChange()"
+          >
+        <ion-select-option *ngFor="let s of dataService.sections; let index = index"
+            [value]="s.Section"
+            >
+          {{ s.Section }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Category:" interface="action-sheet" [(ngModel)]="product.Category">
+        <ion-select-option
+            *ngFor="let c of currentSection"
+            [value]="c"
+            >
+          {{ c }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      p: {{ product | json }}
+    </ion-item>
+  </ion-list>
 </ion-content>
