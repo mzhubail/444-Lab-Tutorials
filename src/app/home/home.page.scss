@@ -26,14 +26,26 @@
   text-decoration: none;
 }
 
-ion-card-content {
+.content_body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: start;
+
+  margin-bottom: 1rem;
 }
 
 img {
   max-width: 25%;
   max-height: 200px;
+}
+
+
+.history_container {
+  padding: 1rem;
+}
+
+.history_entry {
+  display: flex;
+  justify-content: space-between;
 }

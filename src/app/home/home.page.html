@@ -14,19 +14,38 @@
   </ion-header>
 
   <div style="margin: 1rem;">
-    <ion-card *ngFor="let p of dataService.list">
+    <ion-card *ngFor="let p of dataService.list; let index = index">
       <ion-card-header>
         <ion-card-title> {{ p.Section }} </ion-card-title>
         <ion-card-subtitle> {{ p.Category }} </ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-        <p>
-          Name: <span style="color: yellowgreen"> {{ p.Name }} </span> <br>
-          Specification: {{ p.Specification }} <br>
-          Type: {{ p.Type }}
-        </p>
-        <img src="/assets/images/{{ p.Image }}" alt="Picture of {{ p.Name }}">
+        <div class="content_body">
+          <p>
+            Name: <span style="color: yellowgreen"> {{ p.Name }} </span> <br>
+            Specification: {{ p.Specification }} <br>
+            Type: {{ p.Type }}
+          </p>
+          <img src="/assets/images/{{ p.Image }}" alt="Picture of {{ p.Name }}">
+        </div>
+
+        <ion-button expand="block" *ngIf="showHistoryIndex != index">
+          Price: {{ p.Price_history[0].price }}BD
+        </ion-button>
+
+        <ion-button expand="block" color="warning" (click)="showHistory(index)">
+          History
+        </ion-button>
+
+        <div class="history_container" *ngIf="showHistoryIndex == index">
+          <div class="history_entry" *ngFor="let h of p.Price_history">
+            <span> {{ h.price }} </span>
+            <ion-chip> {{ h.date.toLocaleDateString() }} </ion-chip>
+          </div>
+        </div>
+
+        <ion-button expand="block" color="danger"> Delete </ion-button>
       </ion-card-content>
 
     </ion-card>

@@ -7,9 +7,13 @@ import { DataService } from '../services/data.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  public showHistoryIndex = -1;
 
   constructor(
     public dataService : DataService,
   ) {}
 
+  showHistory(index: number) {
+    this.showHistoryIndex = this.showHistoryIndex == index ? -1 : index;
+  }
 }
