@@ -43,6 +43,31 @@
     </ion-item>
 
     <ion-item>
+      <ion-input
+          label="Name:"
+          type="text" required
+          [(ngModel)]="product.Name"
+          >
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+          label="Price:"
+          type="number" required
+          [(ngModel)]="product.Price_history[0].price"
+          >
+      </ion-input>
+    </ion-item>
+
+    <ion-button
+        expand="block" size="normal" color="success" id="back"
+        (click)="backHandler()"
+        >
+      Back
+    </ion-button>
+
+    <ion-item>
       p: {{ product | json }}
     </ion-item>
   </ion-list>

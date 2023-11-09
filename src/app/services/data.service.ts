@@ -48,6 +48,19 @@ export class DataService {
     }
   ];
 
+  empty_product = (): Product => ({
+    Section: '',
+    Category: '',
+    Name: '',
+    Price_history: [{
+      price: 0,
+      date: new Date()
+    }],
+
+    Type: '',
+    Image: '',
+    Specification: '',
+  });
 
   constructor() { }
 }
