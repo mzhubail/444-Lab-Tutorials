@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,26 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large"> Home </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div style="margin: 1rem;">
+    <ion-card *ngFor="let p of dataService.list">
+      <ion-card-header>
+        <ion-card-title> {{ p.Section }} </ion-card-title>
+        <ion-card-subtitle> {{ p.Category }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>
+          Name: <span style="color: yellowgreen"> {{ p.Name }} </span> <br>
+          Specification: {{ p.Specification }} <br>
+          Type: {{ p.Type }}
+        </p>
+        <img src="/assets/images/{{ p.Image }}" alt="Picture of {{ p.Name }}">
+      </ion-card-content>
+
+    </ion-card>
   </div>
 </ion-content>
