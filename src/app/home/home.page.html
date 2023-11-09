@@ -1,5 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="saveHandler()">
+        Save
+      </ion-button>
+      {{ filteredProducts == null ? '' : filteredProducts.length }}
+    </ion-buttons>
     <ion-title>
       Home
     </ion-title>
@@ -19,6 +25,11 @@
   </ion-header>
 
   <div style="margin: 1rem;">
+    <ion-item>
+      <ion-searchbar [(ngModel)]="searchPhrase"></ion-searchbar>
+      <ion-button slot="end" color="medium" (click)="filterHandler()"> Filter </ion-button>
+    </ion-item>
+
     <ion-card *ngFor="let p of list_helper(this.dataService.list); let index = index">
       <ion-card-header>
         <ion-card-title> {{ p.Section }} </ion-card-title>
