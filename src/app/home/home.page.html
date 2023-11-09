@@ -19,7 +19,7 @@
   </ion-header>
 
   <div style="margin: 1rem;">
-    <ion-card *ngFor="let p of dataService.list; let index = index">
+    <ion-card *ngFor="let p of list_helper(this.dataService.list); let index = index">
       <ion-card-header>
         <ion-card-title> {{ p.Section }} </ion-card-title>
         <ion-card-subtitle> {{ p.Category }} </ion-card-subtitle>

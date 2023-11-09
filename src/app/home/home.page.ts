@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from '../services/data.service';
+import { DataService, Product } from '../services/data.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -29,6 +29,21 @@ export class HomePage {
   // }
 
   deleteProduct(index: number) {
+    this.showHistoryIndex = -1;
     this.dataService.list.splice(index, 1);
+  }
+
+  list_helper(ps: Product[]): Product[] {
+    return ps.map(
+      p => ({
+        Section: p.Section == '' ? 'NA' : p.Section,
+        Category: p.Category == '' ? 'NA' : p.Category,
+        Name: p.Name == '' ? 'NA' : p.Name,
+        Price_history: p.Price_history,
+        Type: p.Type == '' ? 'NA' : p.Type,
+        Image: p.Image == '' ? 'placeholder.png' : p.Image,
+        Specification: p.Specification == '' ? 'NA' : p.Specification,
+      })
+    );
   }
 }
