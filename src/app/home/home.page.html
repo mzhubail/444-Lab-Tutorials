@@ -45,7 +45,17 @@
           </div>
         </div>
 
-        <ion-button expand="block" color="danger"> Delete </ion-button>
+        <!-- <ion-button expand="block" color="danger" (click)="deleteProduct(index)">
+          Delete
+        </ion-button> -->
+        <ion-button expand="block" color="danger" id="delete-button-{{index}}">
+          Delete
+        </ion-button>
+        <ion-loading trigger="delete-button-{{index}}"
+            message="Deleteing {{p.Name}} after 2 seconds..." duration="2000"
+            (didDismiss)="deleteProduct(index)"
+            >
+        </ion-loading>
       </ion-card-content>
 
     </ion-card>
