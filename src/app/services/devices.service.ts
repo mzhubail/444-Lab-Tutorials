@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Preferences } from '@capacitor/preferences';
+import { Storage } from '@ionic/storage-angular';
 
 
 export interface Category {
@@ -33,10 +33,14 @@ export class DevicesService {
 
   data!: Category[];
 
-  constructor() { }
+  constructor(
+    public storage: Storage,
+  ) { }
 
+  // Called when entering application
   async loadDevices() {
-    const { value } = await Preferences.get({ key: this.DEVICES_STORAGE })
+    await this.storage.create();
+    const value = await this.storage.get(this.DEVICES_STORAGE);
 
     if (value == null) {
       // console.log('No value in storage')
@@ -45,12 +49,12 @@ export class DevicesService {
     }
 
     // console.log(`found ${value} in storage`)
-    this.data = JSON.parse(value) as Category[]
+    this.data = value as Category[]
   }
 
   async loadDevicesFromLocalStorage() {
-    const { value } = await Preferences.get({ key: this.DEVICES_STORAGE })
-    this.data = ( value ? JSON.parse(value) : [] ) as Category[]
+    const value = await this.storage.get(this.DEVICES_STORAGE);
+    this.data = ( value ? value : [] ) as Category[]
   }
 
   async loadDevicesFromJSONFile() {
@@ -64,9 +68,9 @@ export class DevicesService {
   async saveData() {
     // console.log(`Saving`)
     // console.log(`Saving ${JSON.stringify(data)}`)
-    Preferences.set({
-      key: this.DEVICES_STORAGE,
-      value: JSON.stringify(this.data),
-    })
+    this.storage.set(
+      this.DEVICES_STORAGE,
+      this.data,
+    )
   }
 }
