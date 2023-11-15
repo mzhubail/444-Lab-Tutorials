@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  showAdd = false;
 
-  constructor() {}
+  constructor(
+    public dataService: DataService,
+  ) {}
 
+  toggleShowAdd() {
+    this.showAdd = !this.showAdd;
+  }
 }
