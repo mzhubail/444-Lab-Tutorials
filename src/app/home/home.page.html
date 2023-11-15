@@ -28,8 +28,8 @@
     </div>
 
     <div *ngIf="showAdd">
-      <ion-input label="New Number:" value="0" maxlength="2"></ion-input>
-      <ion-button expand="block">
+      <ion-input label="New Number:" maxlength="2" [(ngModel)]="number"></ion-input>
+      <ion-button expand="block" (click)="addNumber()">
         Add
       </ion-button>
     </div>
