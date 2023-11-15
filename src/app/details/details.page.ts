@@ -14,14 +14,7 @@ export class DetailsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     public dataService: DataService,
-  ) { }
-  id!: number;
-  title!: string;
-  number!: number;
-  val!: RanVal;
-
-
-  ngOnInit() {
+  ) {
     this.id = this.getParam('id');
     this.val = this.dataService.list[this.id];
     this.number = this.val?.Number;
@@ -34,6 +27,15 @@ export class DetailsPage implements OnInit {
 
     this.title = `Number ${this.number}`
     this.setSegment('Even');
+  }
+
+  id!: number;
+  title!: string;
+  number!: number;
+  val!: RanVal;
+
+
+  ngOnInit() {
   }
 
   getParam(name: string) {

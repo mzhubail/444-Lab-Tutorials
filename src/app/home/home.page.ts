@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DataService, RanVal } from '../data.service';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +13,6 @@ export class HomePage {
 
   constructor(
     public dataService: DataService,
-    public loadingCtrl: LoadingController,
   ) {
     this.list = dataService.list
   }
@@ -24,16 +22,10 @@ export class HomePage {
   }
 
   number = 0;
-  async addNumber (isRandom = false) {
+  addNumber (isRandom = false) {
     var num = isRandom
         ? Math.floor((Math.random() * 100) + 1)
         : this.number;
-
-    const loading = await this.loadingCtrl.create({
-      message: `Adding ${num} please wait..`,
-      duration: 500,
-    });
-    await loading.present();
 
     var v : RanVal = {
       Number: num,
