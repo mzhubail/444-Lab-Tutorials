@@ -24,7 +24,8 @@
       <ion-button expand="block" (click)="addNumber(true)">
         Generate Random
       </ion-button>
-      <ion-searchbar></ion-searchbar>
+      <ion-searchbar [(ngModel)]="filterNumber" (ionInput)="filter()">
+      </ion-searchbar>
     </div>
 
     <div *ngIf="showAdd">
@@ -36,7 +37,7 @@
 
     <ion-list>
       <ion-item
-          *ngFor="let entry of dataService.list; let index=index"
+          *ngFor="let entry of list; let index=index"
           button
           routerLink="/details/{{index}}"
           >

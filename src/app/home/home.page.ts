@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService, RanVal } from '../data.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,20 +9,31 @@ import { DataService, RanVal } from '../data.service';
 })
 export class HomePage {
   showAdd = false;
+  list;
+  filterNumber = '';
 
   constructor(
     public dataService: DataService,
-  ) {}
+    public loadingCtrl: LoadingController,
+  ) {
+    this.list = dataService.list
+  }
 
   toggleShowAdd() {
     this.showAdd = !this.showAdd;
   }
 
   number = 0;
-  addNumber (isRandom = false) {
+  async addNumber (isRandom = false) {
     var num = isRandom
         ? Math.floor((Math.random() * 100) + 1)
         : this.number;
+
+    const loading = await this.loadingCtrl.create({
+      message: `Adding ${num} please wait..`,
+      duration: 500,
+    });
+    await loading.present();
 
     var v : RanVal = {
       Number: num,
@@ -38,8 +50,31 @@ export class HomePage {
       if (isPrime(i))
         v.Prime.push(i);
     }
-    console.log(v);
+    // console.log(v);
     this.dataService.list.push(v);
+    this.filter();
+  }
+
+  filter () {
+    console.log(this.filterNumber)
+    if (this.filterNumber === '') {
+      this.list = this.dataService.list;
+      return
+    }
+
+    var i = Number(this.filterNumber)
+    if (i === Number.NaN) {
+      this.list = this.dataService.list;
+      return;
+    }
+
+    this.list = this.dataService.list.filter(
+      v => {
+        var num = v.Number
+        // return num % 10 === i || Math.floor(num / 10) === i
+        return num.toString().includes(i.toString())
+      }
+    )
   }
 }
 
