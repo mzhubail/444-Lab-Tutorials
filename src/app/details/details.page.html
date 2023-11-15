@@ -49,10 +49,16 @@
         </ion-item>
 
         <ion-item-options>
-          <ion-item-option color="danger" (click)="deleteNumber(index)">
+          <ion-item-option color="danger" id="delete-button-{{index}}">
             Delete
           </ion-item-option>
+          <ion-loading trigger="delete-button-{{index}}"
+              message="Deleteing {{i}} after 3 seconds..." duration="3000"
+              (didDismiss)="deleteNumber(index)"
+              >
+          </ion-loading>
         </ion-item-options>
+
       </ion-item-sliding>
     </ion-list>
   </div>
