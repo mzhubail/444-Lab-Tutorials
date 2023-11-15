@@ -35,7 +35,11 @@
     </div>
 
     <ion-list>
-      <ion-item *ngFor="let entry of dataService.list">
+      <ion-item
+          *ngFor="let entry of dataService.list; let index=index"
+          button
+          routerLink="/details/{{index}}"
+          >
         {{ entry.Number }}
       </ion-item>
     </ion-list>
