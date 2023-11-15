@@ -21,7 +21,7 @@
   <div style="margin: 1rem;">
 
     <div *ngIf="!showAdd">
-      <ion-button expand="block">
+      <ion-button expand="block" (click)="addNumber(true)">
         Generate Random
       </ion-button>
       <ion-searchbar></ion-searchbar>

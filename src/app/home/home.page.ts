@@ -18,15 +18,19 @@ export class HomePage {
   }
 
   number = 0;
-  addNumber () {
+  addNumber (isRandom = false) {
+    var num = isRandom
+        ? Math.floor((Math.random() * 100) + 1)
+        : this.number;
+
     var v : RanVal = {
-      Number: this.number,
+      Number: num,
       Even: [],
       Odd: [],
       Prime: [],
     };
 
-    for (let i = 0; i <= this.number; i++) {
+    for (let i = 0; i <= num; i++) {
       if (i % 2 == 0) // is Even
         v.Even.push(i);
       else            // is Odd
@@ -41,7 +45,7 @@ export class HomePage {
 
 
 function isPrime(num: number): boolean {
-  if (num == 0)
+  if (num == 0 || num == 1)
     return false;
   for (let i = 2; i < num; i++) {
     if (num % i === 0) {
