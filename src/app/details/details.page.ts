@@ -12,10 +12,10 @@ export class DetailsPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private navController : NavController,
+    private navController: NavController,
     public dataService: DataService,
   ) { }
-  id! : number;
+  id!: number;
   title!: string;
   number!: number;
   val!: RanVal;
@@ -36,7 +36,7 @@ export class DetailsPage implements OnInit {
     this.setSegment('Even');
   }
 
-  getParam(name : string) {
+  getParam(name: string) {
     var _param = this.activatedRoute.snapshot.paramMap.get(name);
     if (_param == null) {
       this.navController.navigateForward('/home');
@@ -46,7 +46,7 @@ export class DetailsPage implements OnInit {
   }
 
   segment = 'even';
-  chosenList!: number[];
+  chosenList!: Number[];
   setSegment(segment: string) {
     this.segment = segment;
     if (this.segment == 'Even')
@@ -57,5 +57,11 @@ export class DetailsPage implements OnInit {
       this.chosenList = this.val.Prime;
     console.log(this.chosenList)
     console.log(this.segment)
+  }
+
+  deleteNumber(index: number) {
+    this.chosenList.splice(index, 1);
+    // console.log(this.chosenList)
+    // console.log(this.val.Even)
   }
 }

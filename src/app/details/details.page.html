@@ -43,11 +43,17 @@
 
   <div style="margin: 1rem;" [ngSwitch]="segment">
     <ion-list>
-      <ion-item
-          *ngFor="let i of chosenList; let index=index"
-          >
-        {{ i }}
-      </ion-item>
+      <ion-item-sliding *ngFor="let i of chosenList; let index=index">
+        <ion-item>
+          <ion-label> {{ i }} </ion-label>
+        </ion-item>
+
+        <ion-item-options>
+          <ion-item-option color="danger" (click)="deleteNumber(index)">
+            Delete
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </div>
 
