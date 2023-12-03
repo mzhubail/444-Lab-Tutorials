@@ -13,8 +13,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="ion-padding">
+    <div *ngIf="authService.user === null">
+      <ion-input [(ngModel)]="email" label="Email"></ion-input>
+      <ion-input [(ngModel)]="password" label="Password"></ion-input>
+      <ion-button (click)="authService.signIn(email, password)">
+        Sign in
+      </ion-button>
+    </div>
+    <div *ngIf="authService.user !== null">
+      <p>
+        Hi, {{ authService.user.email }}:{{ authService.user.uid }}
+      </p>
+
+      <ion-button (click)="authService.signOut()">
+        Sign out
+      </ion-button>
+    </div>
   </div>
 </ion-content>
