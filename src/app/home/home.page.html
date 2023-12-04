@@ -3,6 +3,9 @@
     <ion-title>
       Blank
     </ion-title>
+    <ion-buttons *ngIf="authService.user !== null && authService.user !== undefined" slot="end">
+      <ion-button (click)="authService.signOut()"> Sign Out </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,35 +16,30 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="ion-padding">
-    <div class="loading-container" *ngIf="authService.user === undefined">
-      <ion-label> Loading data please wait... </ion-label>
-      <ion-spinner name="circular"></ion-spinner>
-    </div>
-
-    <ng-template [ngIf]="authService.user === null">
-      <ion-list>
-        <ion-item>
-          <ion-input label="Email" [(ngModel)]="email">
-          </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Password" [(ngModel)]="password">
-          </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-button (click)="signIn()">
-            Sign In
-          </ion-button>
-        </ion-item>
-      </ion-list>
-    </ng-template>
-
-    <ng-template [ngIf]="authService.user !== null && authService.user !== undefined">
-      <p>
-        Already logged in!
-      </p>
-      <ion-button (click)="authService.signOut()"> Sign Out </ion-button>
-    </ng-template>
+  <div class="loading-container" *ngIf="authService.user === undefined">
+    <ion-label> Loading data please wait... </ion-label>
+    <ion-spinner name="circular"></ion-spinner>
   </div>
+
+  <div class="ion-padding" *ngIf="authService.user === null">
+    <ion-list>
+      <ion-item>
+        <ion-input label="Email" [(ngModel)]="email">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Password" [(ngModel)]="password">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-button (click)="signIn()">
+          Sign In
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ng-template [ngIf]="authService.user !== null && authService.user !== undefined">
+    <app-chat></app-chat>
+  </ng-template>
 </ion-content>
