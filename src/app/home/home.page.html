@@ -21,14 +21,34 @@
         Sign in
       </ion-button>
     </div>
-    <div *ngIf="authService.user !== null">
+    <div *ngIf="authService.user !== null && authService.user !== undefined">
       <p>
         Hi, {{ authService.user.email }}:{{ authService.user.uid }}
       </p>
 
-      <ion-button (click)="authService.signOut()">
-        Sign out
-      </ion-button>
+      <ion-list>
+        <!-- <ion-item *ngFor="let thing of stuff$ | async"> -->
+        <ion-item *ngFor="let thing of stuff">
+           n = {{ thing.n }},
+           s = {{ thing.s }}
+        </ion-item>
+
+        <ion-item>
+          <ion-button (click)="getStuff()">
+            Get user's stuff
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="addRandomThing()">
+            Add random thing
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="authService.signOut()">
+            Sign out
+          </ion-button>
+        </ion-item>
+      </ion-list>
     </div>
   </div>
 </ion-content>
