@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { faker } from '@faker-js/faker';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,13 +16,16 @@ export class HomePage {
   stuff: thing[] = [];
 
   stuffRef;
+  subscription: Subscription | undefined;
 
   constructor(
     public authService: AuthService,
     private db: Firestore,
   ) {
-    this.stuffRef = collection(db, 'stuff');
-    this.getStuff();
+    this.stuffRef = collection(db, 'stuff') as CollectionReference<thing>;
+    authService.user$.subscribe(
+      _ => { this.getStuff(); }
+    );
   }
 
   addRandomThing() {
@@ -44,18 +47,22 @@ export class HomePage {
       const o = collectionData(q, { idField: 'id' }) as Observable<thing[]>;
       this.stuff$ = o;
 
-      o.subscribe(console.log);
-      o.subscribe(data => {
+      this.subscription = o.subscribe(data => {
         this.stuff = data;
-        // console.log(this.stuff);
+        console.log(this.stuff);
       });
     }
     else
+    {
+      if (this.subscription !== undefined)
+        this.subscription.unsubscribe()
       console.log('No');
+    }
   }
 }
 
 interface thing {
+  id?: string;
   uid: string;
   s: string;
   n: number;

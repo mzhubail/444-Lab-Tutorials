@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Auth, User, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  user$;
   user!: User | null;
 
   constructor(
     // private f: FirebaseApp,
     private auth: Auth,
   ) {
-    auth.onAuthStateChanged(
-      user => {
-        this.user = user;
-      }
-    );
+    this.user$ = new Observable<User | null>(observer => {auth.onAuthStateChanged(observer)});
+    this.user$.subscribe(user => { this.user = user; });
+    this.user$.subscribe(console.log);
   }
 
   signIn(email: string, password: string) {
