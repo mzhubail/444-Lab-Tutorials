@@ -1,8 +1,12 @@
 $input-height: 50px;
 
+ion-content::part(scroll) {
+  padding-bottom: $input-height;
+}
+
 #chat-area {
   height: calc(100% - $input-height);
-  overflow-y: scroll;
+  // overflow-y: scroll;
 
   padding: 1rem;
 
@@ -11,7 +15,6 @@ $input-height: 50px;
 
   align-items: flex-start;
 
-  margin-bottom: $input-height;
 }
 
 .message {
@@ -54,6 +57,31 @@ $input-height: 50px;
   height: $input-height;
   width: 100%;
 
-  background-color: orangered;
+  background-color: var(--ion-tab-bar-background);
+
+  padding-left: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+
+
+  ion-button {
+    margin: 0;
+    --border-radius: 0;
+  }
 }
 
+#scroll-button {
+  $space-to-screen-edge: 1rem;
+
+  position: fixed;
+  right: $space-to-screen-edge;
+  bottom: calc($space-to-screen-edge + $input-height);
+  // right: 50px;
+  // bottom: 150px;
+
+  ion-button {
+    --border-radius: 100%;
+    // height: 100%;
+  }
+}
