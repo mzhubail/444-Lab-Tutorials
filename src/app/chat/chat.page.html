@@ -7,5 +7,75 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <div #messagesContainer id="messages-conatiner">
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message recieved"> something </div>
+    <div class="message sent"> something </div>
+    <div class="message sent"> something </div>
+  </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scroll()" color="light" size="small">
+      <ion-icon name="chevron-down" size="small"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
+<ion-footer id="input-container">
+    <ion-input placeholder="Type a message..."></ion-input>
+    <ion-button color="medium">
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+</ion-footer>
