@@ -39,7 +39,9 @@
     </ion-list>
   </div>
 
-  <ng-template [ngIf]="authService.user !== null && authService.user !== undefined">
-    <app-chat></app-chat>
-  </ng-template>
+  <div class="ion-padding" *ngIf="authService.user !== null && authService.user !== undefined">
+    <ion-button routerLink="/chat">
+      Go to Chat
+    </ion-button>
+  </div>
 </ion-content>
