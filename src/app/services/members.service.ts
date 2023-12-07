@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, collection, collectionData, docSnapshots, getDoc, getDocs } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 export interface Member {
@@ -11,7 +11,7 @@ export interface Member {
   gender: "m" | "f";
   major: string;
   contactInfo: {
-    phone?: string;
+    phone?: number;
     email?: string;
   };
 }
