@@ -13,4 +13,31 @@
       <ion-title size="large">Members</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="loading-container" *ngIf="members === undefined">
+    <ion-label> Loading members please wait... </ion-label>
+    <ion-spinner name="circular"></ion-spinner>
+  </div>
+
+  <div *ngIf="members !== undefined">
+    <div *ngIf="members.length === 0" class="ion-padding">
+      No members are stored in the database. <br>
+      Try adding a new one!
+    </div>
+    <ion-accordion-group *ngIf="members.length !== 0">
+      <ion-accordion
+          *ngFor="let m of members; let index=index"
+          [value]="m.id"
+          >
+        <ion-item slot="header" color="light">
+          <ion-label>
+            {{ m.fName }} {{ m.lName }}
+          </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          empty body
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
 </ion-content>
