@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { CollectionReference, Firestore, Timestamp, addDoc, collection, collectionData, serverTimestamp } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { CollectionReference, Firestore, Timestamp, addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from '@angular/fire/firestore';
 
 export interface Message {
   id?: string;
@@ -14,7 +13,7 @@ export interface Message {
   providedIn: 'root'
 })
 export class ChatService {
-  messages$: Observable<Message[]>;
+  messages: Message[] = [];
   messagesRef;
 
   constructor(
@@ -23,8 +22,18 @@ export class ChatService {
   ) {
     this.messagesRef =
       collection(db, 'messages') as CollectionReference<Message>;
-    this.messages$ =
-      collectionData(this.messagesRef, { idField: 'id' });
+
+    const messagesQuery = query(this.messagesRef, orderBy('createdAt', 'asc'));
+
+    onSnapshot(messagesQuery, doc => {
+      // Disables latency compensation
+      if (doc.metadata.hasPendingWrites)
+        return;
+      const messages = doc
+        .docs
+        .map(x => x.data()) as Message[];
+      this.messages = messages;
+    });
   }
 
   sendMessage(text: string) {

@@ -11,17 +11,11 @@ import { Timestamp } from '@angular/fire/firestore';
 export class ChatPage implements OnInit {
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
   text = '';
-  messages: Message[] = [];
 
   constructor(
     public chatService: ChatService,
     public authService: AuthService,
-  ) {
-    chatService.messages$
-      .subscribe(messages => {
-        this.messages = messages;
-      });
-  }
+  ) { }
 
   ngOnInit() { }
 

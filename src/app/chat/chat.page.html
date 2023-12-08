@@ -9,7 +9,7 @@
 
 <ion-content>
   <div #messagesContainer id="messages-conatiner">
-    <div *ngFor="let message of messages"
+    <div *ngFor="let message of chatService.messages"
         [ngClass]="[ 'message', isSent(message) ? 'sent' : 'recieved' ]"
         >
       {{ message.text }}
