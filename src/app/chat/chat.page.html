@@ -9,61 +9,14 @@
 
 <ion-content>
   <div #messagesContainer id="messages-conatiner">
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message recieved"> something </div>
-    <div class="message sent"> something </div>
-    <div class="message sent"> something </div>
+    <div *ngFor="let message of messages"
+        [ngClass]="[ 'message', isSent(message) ? 'sent' : 'recieved' ]"
+        >
+      {{ message.text }}
+      <div class="message-timestamp">
+        {{ formatTimestamp(message.createdAt) }}
+      </div>
+    </div>
   </div>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
@@ -74,8 +27,8 @@
 </ion-content>
 
 <ion-footer id="input-container">
-    <ion-input placeholder="Type a message..."></ion-input>
-    <ion-button color="medium">
+    <ion-input placeholder="Type a message..." [(ngModel)]="text"></ion-input>
+    <ion-button color="medium" (click)="sendMessage()">
       <ion-icon name="send"></ion-icon>
     </ion-button>
 </ion-footer>
