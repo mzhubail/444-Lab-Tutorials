@@ -37,13 +37,90 @@
           *ngFor="let m of members; let index=index"
           [value]="m.id"
           >
-        <ion-item slot="header" color="light">
+        <ion-item slot="header"
+            [color]="index == editIndex ? 'medium' : 'light'"
+            >
           <ion-label>
             {{ m.fName }} {{ m.lName }}
           </ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          empty body
+          <div
+              *ngIf="editIndex != index"
+              style="line-height: 1.7;"
+              >
+            Student ID: {{ m.sid }} <br>
+            Name: {{ m.fName }} {{ m.lName }} <br>
+            Age: {{ m.age }} <br>
+            E-mail: {{ m.email }} <br>
+            Gender: {{ m.gender == 'm' ? 'Male' : 'Female' }} <br>
+            Phone number: {{ m.phone }} <br>
+          </div>
+
+          <div *ngIf="editIndex == index">
+            <x-input
+              label="Enter email"
+              placeholder="Your email"
+              name="email"
+              [fc]="editForm.controls.email"></x-input>
+            <x-input
+              label="Enter student id"
+              placeholder="Your student id"
+              name="student id"
+              type="number"
+              [fc]="editForm.controls.sid"></x-input>
+            <x-input
+              label="Enter first name"
+              placeholder="Your first name"
+              name="first name"
+              [fc]="editForm.controls.fName"></x-input>
+            <x-input
+              label="Enter last name"
+              placeholder="Your last name"
+              name="last name"
+              [fc]="editForm.controls.lName"></x-input>
+            <x-input
+              label="Enter age"
+              placeholder="Your age"
+              name="age"
+              type="number"
+              [fc]="editForm.controls.age"></x-input>
+            <ion-item>
+              <ion-select
+                  label="Select gender"
+                  placeholder="Your gender"
+                  interface="action-sheet"
+                  [(ngModel)]="editMemberGender"
+                  >
+                <ion-select-option value="m"> Male </ion-select-option>
+                <ion-select-option value="f"> Female </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <x-input
+              label="Enter major"
+              placeholder="Your major"
+              name="major"
+              [fc]="editForm.controls.major"></x-input>
+            <x-input
+              label="Enter phone number"
+              placeholder="Your phone number"
+              name="phone number"
+              [messages]="{ pattern: 'Please enter a valid Bahraini phone number' }"
+              [fc]="editForm.controls.phone"></x-input>
+          </div>
+
+          <div class="button-container">
+            <ion-button
+                *ngIf="editIndex == index"
+                size="small"
+                (click)="editIndex = -1"
+                >
+              Cancel
+            </ion-button>
+            <ion-button size="small" (click)="toggleEditable(index, m.id)">
+              {{ editIndex == index ? 'Save' : 'Edit' }}
+            </ion-button>
+          </div>
         </div>
       </ion-accordion>
     </ion-accordion-group>
@@ -118,7 +195,7 @@
           placeholder="Your phone number"
           name="phone number"
           [messages]="{ pattern: 'Please enter a valid Bahraini phone number' }"
-          [fc]="loginForm.controls.phoneNumber"></x-input>
+          [fc]="loginForm.controls.phone"></x-input>
 
       </x-form>
     </ion-content>

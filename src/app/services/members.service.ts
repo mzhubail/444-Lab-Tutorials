@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, addDoc, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { faker } from '@faker-js/faker';
 
@@ -52,4 +52,9 @@ export class MembersService {
     phone: faker.number.int({ min: 33000000, max: 39999999 }),
     email: faker.internet.email(),
   });
+
+  setMember(id: string, member: Member) {
+    const d = doc(this.membersRef, id);
+    return setDoc(d, member);
+  }
 }
