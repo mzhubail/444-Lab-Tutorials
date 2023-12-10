@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { MembersPageRoutingModule } from './members-routing.module';
 
 import { MembersPage } from './members.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     MembersPageRoutingModule
   ],
   declarations: [MembersPage]
