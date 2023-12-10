@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, addDoc, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { faker } from '@faker-js/faker';
 
@@ -56,5 +56,9 @@ export class MembersService {
   setMember(id: string, member: Member) {
     const d = doc(this.membersRef, id);
     return setDoc(d, member);
+  }
+
+  deleteMember(id: string) {
+    return deleteDoc(doc(this.membersRef, id));
   }
 }

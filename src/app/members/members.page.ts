@@ -115,4 +115,9 @@ export class MembersPage implements OnInit {
       );
     }
   }
+
+  _delete(id: string | undefined) {
+    if (id)
+      this.membersService.deleteMember(id);
+  }
 }
