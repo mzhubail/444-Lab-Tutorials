@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 export interface Member {
@@ -10,10 +10,8 @@ export interface Member {
   age: string;
   gender: "m" | "f";
   major: string;
-  contactInfo: {
-    phone?: number;
-    email?: string;
-  };
+  phone: number;
+  email: string;
 }
 
 @Injectable({
@@ -32,6 +30,13 @@ export class MembersService {
       collectionData(this.membersRef, { idField: 'id' }) as Observable<Member[]>;
 
     this.members$.subscribe(console.log);
+  }
+
+  addMember(member: Member) {
+    return addDoc(
+      this.membersRef,
+      member,
+    );
   }
 
 }

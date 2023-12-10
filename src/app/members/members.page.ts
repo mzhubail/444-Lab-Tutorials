@@ -14,6 +14,7 @@ import { NumberValidator } from '../custom-validators';
 export class MembersPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
   @ViewChild(FormComponent) membersForm!: FormComponent;
+  addMemberGender: 'm' | 'f' = 'm';
   members: Member[] | undefined;
   loginForm;
 
@@ -45,8 +46,16 @@ export class MembersPage implements OnInit {
 
   confirm() {
     this.membersForm.submitForm()
-    if (this.loginForm.valid)
+    if (this.loginForm.valid) {
+      const _member = {
+        gender: this.addMemberGender,
+        ...this.loginForm.value,
+      };
+      const member = (_member as unknown) as Member;
+      this.membersService.addMember(member);
+
       this.modal.dismiss(null, 'confirm');
+    }
   }
 
   onWillDismiss(event: Event) {
