@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CollectionReference, Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { faker } from '@faker-js/faker';
 
 export interface Member {
   id?: string;
   sid: number;
   fName: string;
   lName: string;
-  age: string;
+  age: number;
   gender: "m" | "f";
   major: string;
   phone: number;
@@ -39,4 +40,16 @@ export class MembersService {
     );
   }
 
+  addRandom = () => this.addMember(this.randomMember());
+
+  randomMember = (): Member => ({
+    sid: faker.number.int({ min: 10000, max: 99999 }),
+    fName: faker.person.firstName(),
+    lName: faker.person.lastName(),
+    age: faker.number.int({ min: 18, max: 99 }),
+    gender: faker.number.int(1) == 1 ? 'm' : 'f',
+    major: faker.person.jobDescriptor(),
+    phone: faker.number.int({ min: 33000000, max: 39999999 }),
+    email: faker.internet.email(),
+  });
 }
