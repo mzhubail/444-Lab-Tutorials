@@ -65,56 +65,59 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
+      <x-form #membersForm>
 
-      <x-input
-        label="Enter email"
-        placeholder="Your email"
-        name="email"
-        [fc]="loginForm.controls.email"></x-input>
-      <x-input
-        label="Enter student id"
-        placeholder="Your student id"
-        name="student id"
-        [messages]="{ pattern: 'student id must be a valid number' }"
-        [fc]="loginForm.controls.sid"></x-input>
-      <x-input
-        label="Enter first name"
-        placeholder="Your first name"
-        name="first name"
-        [fc]="loginForm.controls.fName"></x-input>
-      <x-input
-        label="Enter last name"
-        placeholder="Your last name"
-        name="last name"
-        [fc]="loginForm.controls.lName"></x-input>
-      <x-input
-        label="Enter age"
-        placeholder="Your age"
-        name="age"
-        [fc]="loginForm.controls.age"></x-input>
-      <ion-item>
-        <ion-select
-            label="Select gender"
-            placeholder="Your gender"
-            interface="action-sheet"
-            value="m"
-            >
-          <ion-select-option value="m"> Male </ion-select-option>
-          <ion-select-option value="f"> Female </ion-select-option>
-        </ion-select>
-      </ion-item>
-      <x-input
-        label="Enter major"
-        placeholder="Your major"
-        name="major"
-        [fc]="loginForm.controls.major"></x-input>
-      <x-input
-        label="Enter phone number"
-        placeholder="Your phone number"
-        name="phone number"
-        [messages]="{ pattern: 'Please enter a valid Bahraini phone number' }"
-        [fc]="loginForm.controls.phoneNumber"></x-input>
+        <x-input
+          label="Enter email"
+          placeholder="Your email"
+          name="email"
+          [fc]="loginForm.controls.email"></x-input>
+        <x-input
+          label="Enter student id"
+          placeholder="Your student id"
+          name="student id"
+          type="number"
+          [fc]="loginForm.controls.sid"></x-input>
+        <x-input
+          label="Enter first name"
+          placeholder="Your first name"
+          name="first name"
+          [fc]="loginForm.controls.fName"></x-input>
+        <x-input
+          label="Enter last name"
+          placeholder="Your last name"
+          name="last name"
+          [fc]="loginForm.controls.lName"></x-input>
+        <x-input
+          label="Enter age"
+          placeholder="Your age"
+          name="age"
+          type="number"
+          [fc]="loginForm.controls.age"></x-input>
+        <ion-item>
+          <ion-select
+              label="Select gender"
+              placeholder="Your gender"
+              interface="action-sheet"
+              value="m"
+              >
+            <ion-select-option value="m"> Male </ion-select-option>
+            <ion-select-option value="f"> Female </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <x-input
+          label="Enter major"
+          placeholder="Your major"
+          name="major"
+          [fc]="loginForm.controls.major"></x-input>
+        <x-input
+          label="Enter phone number"
+          placeholder="Your phone number"
+          name="phone number"
+          [messages]="{ pattern: 'Please enter a valid Bahraini phone number' }"
+          [fc]="loginForm.controls.phoneNumber"></x-input>
 
+      </x-form>
     </ion-content>
   </ng-template>
 </ion-modal>

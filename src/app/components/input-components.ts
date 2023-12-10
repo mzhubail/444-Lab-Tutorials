@@ -14,6 +14,7 @@ import { WasSubmittedService } from '../services/was-submitted.service';
           [class.ion-touched]="this.fc.dirty || this.wasSubmitted"
           [formControl]="fc"
           [placeholder]="placeholder"
+          [type]="type"
           ></ion-input>
     </ion-item>
   `,
@@ -30,6 +31,7 @@ export class InputComponent implements OnInit {
   /** User defined messages, key is errorName and value is the message */
   @Input() messages: { [key: string]: string } = {};
   @Input() placeholder: string | undefined;
+  @Input() type: "date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = 'text';
 
   get wasSubmitted() {
     return this.wasSubmittedService.wasSubmitted;
@@ -66,6 +68,8 @@ export class InputComponent implements OnInit {
     switch (errorName) {
       case 'required':
         return `${name} is required`;
+      case 'notANumber':
+        return `${name} must be a number`;
       case 'min':
         return `${name} has to be greater than or equal to ${errorContent.min}`;
       case 'max':

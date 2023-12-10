@@ -3,6 +3,8 @@ import { Member, MembersService } from '../services/members.service';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FormComponent } from '../components/input-components';
+import { NumberValidator } from '../custom-validators';
 
 @Component({
   selector: 'app-members',
@@ -11,6 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class MembersPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
+  @ViewChild(FormComponent) membersForm!: FormComponent;
   members: Member[] | undefined;
   loginForm;
 
@@ -23,11 +26,11 @@ export class MembersPage implements OnInit {
     });
 
     this.loginForm = formBuilder.group({
-      sid: ['', [Validators.required, Validators.pattern(/^\d+$/),]],
+      sid: ['', [Validators.required, NumberValidator.number,]],
       fName: ['', [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
       lName: ['', [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(64), Validators.minLength(8),]],
-      age: ['', [Validators.required, Validators.min(18), Validators.max(99),]],
+      age: ['', [Validators.required, NumberValidator.number, Validators.min(18), Validators.max(99),]],
       major: ['', [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^(66|3\d)\d{6}$/)]],
     })
@@ -41,7 +44,9 @@ export class MembersPage implements OnInit {
   }
 
   confirm() {
-    this.modal.dismiss(null, 'confirm');
+    this.membersForm.submitForm()
+    if (this.loginForm.valid)
+      this.modal.dismiss(null, 'confirm');
   }
 
   onWillDismiss(event: Event) {
