@@ -4,6 +4,11 @@
       <ion-back-button defaultHref="/"> </ion-back-button>
     </ion-buttons>
     <ion-title> Activity </ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="add-modal">
+        Add
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,3 +19,98 @@
     </ion-toolbar>
   </ion-header>
 </ion-content>
+
+<ion-modal trigger="add-modal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">
+            Cancel
+          </ion-button>
+        </ion-buttons>
+        <ion-title> Add Member </ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirm()" [strong]="true">
+            Confirm
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <x-form #addActivityComponent>
+
+        <x-input
+          label="Enter title"
+          placeholder="Activity title"
+          name="title"
+          [fc]="addActivityForm.controls.title"></x-input>
+        <x-input
+          label="Enter participant count"
+          placeholder="Activity participant count"
+          name="participant count"
+          [fc]="addActivityForm.controls.partCount"></x-input>
+        <x-input
+          label="Enter venue"
+          placeholder="Activity venue"
+          name="venue"
+          [fc]="addActivityForm.controls.venue"></x-input>
+
+        <ion-item>
+          <ion-label> Date </ion-label>
+          <ion-datetime-button datetime="date"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="date"
+                  [(ngModel)]="addProps.date"
+                  presentation="date"
+                  >
+              </ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+
+        <ion-item>
+          <ion-label> Duration </ion-label>
+          <ion-datetime-button datetime="duration"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="duration"
+                  [(ngModel)]="addProps.duration"
+                  presentation="time"
+                  >
+              </ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+
+        <ion-item>
+          <ion-select
+              label="Select topic"
+              placeholder="Your activity topic"
+              interface="action-sheet"
+              [(ngModel)]="addProps.topic"
+              >
+            <ion-select-option value="Cultural">
+              Cultural
+            </ion-select-option>
+            <ion-select-option value="Scientific">
+              Scientific
+            </ion-select-option>
+            <ion-select-option value="Competition">
+              Competition
+            </ion-select-option>
+            <ion-select-option value="Organization">
+              Organization
+            </ion-select-option>
+            <ion-select-option value="Genral">
+              Genral
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+      </x-form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
