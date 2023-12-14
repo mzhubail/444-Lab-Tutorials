@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, addDoc, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { faker } from '@faker-js/faker';
 
@@ -57,5 +57,11 @@ export class ActivityService {
       ),
       venue: faker.location.city() + ' venue',
     }
-  };
+  }
+
+
+  setActivity(id: string, activity: Activity) {
+    const d = doc(this.activityRef, id);
+    return setDoc(d, activity);
+  }
 }

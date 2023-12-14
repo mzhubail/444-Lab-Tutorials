@@ -148,6 +148,7 @@ export class ActivityPage implements OnInit {
       const activity = (_activity as unknown) as Activity;
 
       console.log('Saving', activity);
+      this.activityService.setActivity(id, activity);
     }
 
     else {
