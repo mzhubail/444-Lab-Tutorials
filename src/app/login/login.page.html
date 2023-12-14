@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"> </ion-back-button>
+    </ion-buttons>
+    <ion-title> Log-in </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> Log-in </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="ion-padding">
+    <x-form (onSubmit)="login()">
+      <x-input
+          label="Email"
+          placeholder="Your email"
+          [fc]="loginForm.controls.email"
+          ></x-input>
+      <x-input
+          label="Password"
+          placeholder="Your password"
+          [fc]="loginForm.controls.password"
+          ></x-input>
+      <x-input
+          label="Password Confirmation"
+          placeholder="Confirm your password"
+          [fc]="loginForm.controls.passwordConfirm"
+          ></x-input>
+
+      <ion-item>
+        <ion-button type="submit" style="margin-left: auto;">
+          Submit
+        </ion-button>
+      </ion-item>
+      <!-- <button type="submit" class="btn btn-danger"> Submit </button> -->
+    </x-form>
+  </div>
+</ion-content>
