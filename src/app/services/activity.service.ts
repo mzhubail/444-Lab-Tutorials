@@ -42,8 +42,11 @@ export class ActivityService {
   addRandom = () => this.addActivity(this.randomActivity());
 
   randomActivity(): Activity {
-    const _duration = faker.date.recent({ days: 1 }),
-      duration = `${_duration.getHours()}:${_duration.getMinutes()}`;
+    const
+      _duration = faker.date.recent({ days: 1 }),
+      duration = _duration.getHours().toString().padStart(2, '0') + ':' +
+        _duration.getMinutes().toString().padStart(2, '0');
+
     return {
       date: faker.date.past({ years: 1 }).toISOString(),
       duration: duration,

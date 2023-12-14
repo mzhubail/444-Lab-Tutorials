@@ -38,19 +38,108 @@
           [value]="a.id"
           >
         <ion-item slot="header"
-            color="light"
+            [color]="index == editIndex ? 'medium' : 'light'"
             >
           <ion-label>
             {{ a.title }}
           </ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <div>
+          <div
+              *ngIf="editIndex != index"
+              style="line-height: 1.7;"
+              >
             Date: {{ formatDate(a.date) }} <br>
             Duration: {{ a.duration }} <br>
             Number of participants: {{ a.partCount }} <br>
             Activity topic: {{ a.topic }} <br>
             Venue: {{ a.venue }} <br>
+          </div>
+
+          <div *ngIf="editIndex == index">
+
+            <x-input
+              label="Enter title"
+              placeholder="Activity title"
+              name="title"
+              [fc]="editForm.controls.title"></x-input>
+            <x-input
+              label="Enter participant count"
+              placeholder="Activity participant count"
+              name="participant count"
+              [fc]="editForm.controls.partCount"></x-input>
+            <x-input
+              label="Enter venue"
+              placeholder="Activity venue"
+              name="venue"
+              [fc]="editForm.controls.venue"></x-input>
+
+            <ion-item>
+              <ion-label> Date </ion-label>
+              <ion-datetime-button datetime="date"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime id="date"
+                      [(ngModel)]="editProps.date"
+                      presentation="date"
+                      >
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+
+            <ion-item>
+              <ion-label> Duration </ion-label>
+              <ion-datetime-button datetime="duration"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime id="duration"
+                      [(ngModel)]="editProps.duration"
+                      presentation="time"
+                      >
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+
+            <ion-item>
+              <ion-select
+                  label="Select topic"
+                  placeholder="Your activity topic"
+                  interface="action-sheet"
+                  [(ngModel)]="editProps.topic"
+                  >
+                <ion-select-option value="Cultural">
+                  Cultural
+                </ion-select-option>
+                <ion-select-option value="Scientific">
+                  Scientific
+                </ion-select-option>
+                <ion-select-option value="Competition">
+                  Competition
+                </ion-select-option>
+                <ion-select-option value="Organization">
+                  Organization
+                </ion-select-option>
+                <ion-select-option value="General">
+                  General
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </div>
+
+          <div class="button-container">
+            <ion-button
+                *ngIf="editIndex == index"
+                size="small"
+                (click)="editIndex = -1"
+                >
+              Cancel
+            </ion-button>
+            <ion-button size="small" (click)="toggleEditable(index, a.id)">
+              {{ editIndex == index ? 'Save' : 'Edit' }}
+            </ion-button>
           </div>
         </div>
       </ion-accordion>
@@ -141,8 +230,8 @@
             <ion-select-option value="Organization">
               Organization
             </ion-select-option>
-            <ion-select-option value="Genral">
-              Genral
+            <ion-select-option value="General">
+              General
             </ion-select-option>
           </ion-select>
         </ion-item>

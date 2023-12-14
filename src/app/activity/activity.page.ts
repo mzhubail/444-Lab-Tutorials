@@ -22,6 +22,15 @@ export class ActivityPage implements OnInit {
   };
   activities: Activity[] | undefined;
 
+  // Edit functionality
+  editIndex = -1;
+  editProps: Props = {
+    topic: undefined,
+    date: undefined,
+    duration: undefined,
+  };
+  editForm;
+
   constructor(
     public formBuilder: FormBuilder,
     public alertController: AlertController,
@@ -31,6 +40,7 @@ export class ActivityPage implements OnInit {
       this.activities = data;
     });
     this.addActivityForm = this.buildForm('', '', '');
+    this.editForm = this.buildForm('', '', '');
   }
 
   ngOnInit() { }
@@ -68,9 +78,11 @@ export class ActivityPage implements OnInit {
       return this.validationAlert('Please select a topic');
 
     // Add activity
-    // Trim date part from duration
-    const _duration = new Date(props.duration),
-      duration = `${_duration.getHours()}:${_duration.getMinutes()}`
+    // Trim date part from duration and pad with zeros
+    const
+      _duration = new Date((props.duration as unknown) as string),
+      duration = _duration.getHours().toString().padStart(2, '0') + ':' +
+          _duration.getMinutes().toString().padStart(2, '0');
 
     const fromForm = this.addActivityForm.value;
     const _activity = {
@@ -103,4 +115,62 @@ export class ActivityPage implements OnInit {
     const date = new Date(ISOString);
     return date.toDateString();
   }
+
+
+  // Edit functionality
+  toggleEditable(index: number, id: string | undefined) {
+    if (this.editIndex == index) {
+      if (this.editForm.invalid)
+        return;
+
+      this.editIndex = -1;
+      if (this.activities === undefined || id === undefined)
+        return;
+
+
+      // Extract activity and store it
+      const props = this.editProps;
+      // Trim date part from duration and pad with zeros
+      const
+        _duration = new Date((props.duration as unknown) as string),
+        duration = _duration.getHours().toString().padStart(2, '0') + ':' +
+            _duration.getMinutes().toString().padStart(2, '0');
+
+      const fromForm = this.editForm.value;
+      const _activity = {
+        ...props,
+        // Convert part count to number
+        title: fromForm.title,
+        venue: fromForm.venue,
+        partCount: Number(fromForm.partCount),
+        duration: duration,
+      };
+      const activity = (_activity as unknown) as Activity;
+
+      console.log('Saving', activity);
+    }
+
+    else {
+      this.editIndex = index;
+      if (!this.activities)
+        return;
+      const member = this.activities[index];
+      this.editForm = this.buildForm(
+        member.title,
+        member.venue,
+        member.partCount.toString(),
+      );
+      this.editProps = {
+        topic: member.topic,
+        date: member.date,
+        duration: member.duration,
+      };
+    }
+  }
+}
+
+interface Props {
+  topic: undefined | string,
+  date: undefined | string,
+  duration: undefined | string,
 }
