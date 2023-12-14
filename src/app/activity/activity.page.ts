@@ -20,12 +20,16 @@ export class ActivityPage implements OnInit {
     date: undefined,
     duration: undefined,
   };
+  activities: Activity[] | undefined;
 
   constructor(
     public formBuilder: FormBuilder,
     public alertController: AlertController,
     public activityService: ActivityService,
   ) {
+    activityService.activities$.subscribe(data => {
+      this.activities = data;
+    });
     this.addActivityForm = this.buildForm('', '', '');
   }
 
@@ -93,5 +97,10 @@ export class ActivityPage implements OnInit {
       buttons: ['Close'],
     });
     alert.present();
+  }
+
+  formatDate(ISOString: string) {
+    const date = new Date(ISOString);
+    return date.toDateString();
   }
 }
