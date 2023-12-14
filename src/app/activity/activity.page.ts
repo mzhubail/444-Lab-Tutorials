@@ -168,6 +168,11 @@ export class ActivityPage implements OnInit {
       };
     }
   }
+
+  _delete(id: string | undefined) {
+    if (id)
+      this.activityService.deleteActivity(id);
+  }
 }
 
 interface Props {

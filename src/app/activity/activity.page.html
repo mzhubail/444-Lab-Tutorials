@@ -140,6 +140,14 @@
             <ion-button size="small" (click)="toggleEditable(index, a.id)">
               {{ editIndex == index ? 'Save' : 'Edit' }}
             </ion-button>
+            <ion-button
+                *ngIf="editIndex != index"
+                size="small"
+                (click)="_delete(a.id)"
+                color="danger"
+                >
+                Delete
+            </ion-button>
           </div>
         </div>
       </ion-accordion>
