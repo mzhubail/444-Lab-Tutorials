@@ -113,6 +113,7 @@ export class MembersPage implements OnInit {
       if (this.editForm.touched || this.editMemberGender !== this.members[index].gender) {
         const _member = {
           gender: this.editMemberGender,
+          email: this.editMemberEmail,
           ...this.editForm.value,
         };
         const member = (_member as unknown) as Member;
