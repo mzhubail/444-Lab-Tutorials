@@ -22,6 +22,7 @@ export class MembersPage implements OnInit {
   editIndex = -1;
   editForm;
   editMemberGender: 'm' | 'f' = 'm';
+  editMemberEmail: string = '';
 
   constructor(
     public membersService: MembersService,
@@ -31,7 +32,7 @@ export class MembersPage implements OnInit {
       this.members = data;
     });
     this.loginForm = this.buildAddForm('', '', '', '', '', '', '',);
-    this.editForm = this.buildAddForm('', '', '', '', '', '', '',);
+    this.editForm = this.buildEditForm('', '', '', '', '', '',);
   }
 
   buildAddForm(
@@ -58,7 +59,6 @@ export class MembersPage implements OnInit {
     sid: string,
     fName: string,
     lName: string,
-    email: string,
     age: string,
     major: string,
     phone: string,
@@ -67,7 +67,6 @@ export class MembersPage implements OnInit {
       sid: [sid, [Validators.required, NumberValidator.number,]],
       fName: [fName, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
       lName: [lName, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
-      email: [email, [Validators.required, Validators.email, Validators.maxLength(64), Validators.minLength(8),]],
       age: [age, [Validators.required, NumberValidator.number, Validators.min(18), Validators.max(99),]],
       major: [major, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
       phone: [phone, [Validators.required, Validators.pattern(/^(66|3\d)\d{6}$/)]],
@@ -125,11 +124,11 @@ export class MembersPage implements OnInit {
       if (!this.members)
         return;
       const member = this.members[index];
+      this.editMemberEmail = member.email;
       this.editForm = this.buildEditForm(
         member.sid.toString(),
         member.fName,
         member.lName,
-        member.email,
         member.age.toString(),
         member.major,
         member.phone.toString(),

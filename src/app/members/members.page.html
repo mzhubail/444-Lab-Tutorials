@@ -58,11 +58,14 @@
           </div>
 
           <div *ngIf="editIndex == index">
-            <x-input
-              label="Enter email"
-              placeholder="Your email"
-              name="email"
-              [fc]="editForm.controls.email"></x-input>
+            <ion-item>
+              <ion-input
+                  label="Email"
+                  labelPlacement="stacked"
+                  disabled="true"
+                  [value]="editMemberEmail"
+                  ></ion-input>
+            </ion-item>
             <x-input
               label="Enter student id"
               placeholder="Your student id"
