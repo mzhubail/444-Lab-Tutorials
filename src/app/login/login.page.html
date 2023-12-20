@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="ion-padding">
+  <div class="ion-padding" *ngIf="authService.user === null">
     <x-form (onSubmit)="login()">
       <x-input
           label="Email"
@@ -35,5 +35,15 @@
       </ion-item>
       <!-- <button type="submit" class="btn btn-danger"> Submit </button> -->
     </x-form>
+  </div>
+  <div class="ion-padding"
+      *ngIf="authService.user !== null && authService.user !== undefined"
+      >
+      <ion-button
+          expand="block"
+          (click)="authService.signOut()"
+          >
+        Log out
+      </ion-button>
   </div>
 </ion-content>

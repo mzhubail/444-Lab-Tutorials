@@ -6,10 +6,12 @@ import {
 import {
   Auth,
   signInWithEmailAndPassword,
+  signOut,
   User,
 } from '@angular/fire/auth';
 
 import { AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { Member, MembersService } from './members.service';
 import { lastValueFrom } from 'rxjs';
 
@@ -27,6 +29,7 @@ export class AuthService {
   constructor(
     private auth: Auth,
     private alertCtrl: AlertController,
+    private navCtrl: NavController,
     private membersService: MembersService,
   ) {
     auth.onAuthStateChanged(user => {
@@ -52,6 +55,24 @@ export class AuthService {
         this.generalAlert(
           'Wrong Credentials',
           'Incorrect Email or Password ❌',
+          ['OK']
+        );
+      });
+  }
+
+
+
+
+
+  signOut() {
+    signOut(this.auth)
+      .then(() => {
+        this.navCtrl.navigateBack('/login');
+      })
+      .catch(() => {
+        this.generalAlert(
+          'Fail',
+          'Sorry, there is a problem signing you out ❌',
           ['OK']
         );
       });
