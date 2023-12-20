@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    public authService: AuthService,
   ) {
     this.loginForm = formBuilder.group({
       email: ['', [
@@ -25,6 +27,14 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    throw new Error('Method not implemented.');
+    if (this.loginForm.invalid)
+      return;
+
+    console.log(this.loginForm.value);
+    const { email, password } = this.loginForm.value;
+    this.authService.logIn(
+      email as string,
+      password as string,
+    );
   }
 }
