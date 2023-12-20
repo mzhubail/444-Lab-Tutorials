@@ -18,7 +18,6 @@ export class LoginPage implements OnInit {
         Validators.minLength(8),
       ]],
       password: ['', [Validators.required, Validators.minLength(8),]],
-      passwordConfirm: ['', [Validators.required,]],
     })
   }
 
