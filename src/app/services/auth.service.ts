@@ -1,7 +1,4 @@
 import { Injectable, OnInit } from '@angular/core';
-import {
-  Firestore,
-} from '@angular/fire/firestore';
 
 import {
   Auth,
@@ -13,7 +10,7 @@ import {
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Member, MembersService } from './members.service';
-import { lastValueFrom } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 
 
@@ -24,6 +21,8 @@ export class AuthService {
   // User related variables
   user!: User | null;
   member!: Member | null;
+
+  private memberSub: Subscription | undefined;
 
 
   constructor(
@@ -38,6 +37,30 @@ export class AuthService {
       if (this.user === null)
         return;
       console.log('Logged in with user', this.user.email);
+
+
+      if (this.memberSub)
+        this.memberSub.unsubscribe();
+
+      // Set member
+      this.memberSub =  membersService.members$
+        .subscribe(members => {
+          console.log('Entered with members', members);
+
+          const member = members.find(m => m.id === this.user?.uid);
+          if (!member) {
+            console.error(
+              'User role was not retrieved correctly.\n\n Make sure that the ' +
+              'corresponding userInfo for the user is stored in ' +
+              '\'User Information\' with the same id as the current user id.'
+            );
+            this.member = null;
+          } else {
+            this.member = member;
+          }
+
+          console.log('Using member', member);
+        });
     });
   }
 
