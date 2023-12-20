@@ -20,7 +20,7 @@ export class MembersPage implements OnInit {
 
   // Edit functionality
   editIndex = -1;
-  editForm!: FormGroup<{ sid: FormControl<string | null>; fName: FormControl<string | null>; lName: FormControl<string | null>; email: FormControl<string | null>; age: FormControl<string | null>; major: FormControl<string | null>; phone: FormControl<string | null>; }>;
+  editForm;
   editMemberGender: 'm' | 'f' = 'm';
 
   constructor(
@@ -31,6 +31,7 @@ export class MembersPage implements OnInit {
       this.members = data;
     });
     this.loginForm = this.buildAddForm('', '', '', '', '', '', '',);
+    this.editForm = this.buildAddForm('', '', '', '', '', '', '',);
   }
 
   buildAddForm(
