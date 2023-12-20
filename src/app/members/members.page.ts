@@ -52,6 +52,7 @@ export class MembersPage implements OnInit {
       age: [age, [Validators.required, NumberValidator.number, Validators.min(18), Validators.max(99),]],
       major: [major, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
       phone: [phone, [Validators.required, Validators.pattern(/^(66|3\d)\d{6}$/)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -83,12 +84,23 @@ export class MembersPage implements OnInit {
   confirm() {
     this.membersForm.submitForm()
     if (this.loginForm.valid) {
+      const fromForm = this.loginForm.value
       const _member = {
+        sid:    fromForm.sid,
+        fName:  fromForm.fName,
+        lName:  fromForm.lName,
+        age:    fromForm.age,
         gender: this.addMemberGender,
-        ...this.loginForm.value,
+        major:  fromForm.major,
+        phone:  fromForm.phone,
+        email:  fromForm.email,
       };
       const member = (_member as unknown) as Member;
-      this.membersService.addMember(member);
+
+      this.membersService.addMember(
+        member,
+        fromForm.password as string,
+      );
 
       this.modal.dismiss(null, 'confirm');
     }
