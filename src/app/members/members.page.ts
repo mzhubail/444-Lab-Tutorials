@@ -30,10 +30,30 @@ export class MembersPage implements OnInit {
     membersService.members$.subscribe(data => {
       this.members = data;
     });
-    this.loginForm = this.buildForm('', '', '', '', '', '', '',);
+    this.loginForm = this.buildAddForm('', '', '', '', '', '', '',);
   }
 
-  buildForm(
+  buildAddForm(
+    sid: string,
+    fName: string,
+    lName: string,
+    email: string,
+    age: string,
+    major: string,
+    phone: string,
+  ) {
+    return this.formBuilder.group({
+      sid: [sid, [Validators.required, NumberValidator.number,]],
+      fName: [fName, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
+      lName: [lName, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
+      email: [email, [Validators.required, Validators.email, Validators.maxLength(64), Validators.minLength(8),]],
+      age: [age, [Validators.required, NumberValidator.number, Validators.min(18), Validators.max(99),]],
+      major: [major, [Validators.required, Validators.maxLength(64), Validators.minLength(2),]],
+      phone: [phone, [Validators.required, Validators.pattern(/^(66|3\d)\d{6}$/)]],
+    });
+  }
+
+  buildEditForm(
     sid: string,
     fName: string,
     lName: string,
@@ -104,7 +124,7 @@ export class MembersPage implements OnInit {
       if (!this.members)
         return;
       const member = this.members[index];
-      this.editForm = this.buildForm(
+      this.editForm = this.buildEditForm(
         member.sid.toString(),
         member.fName,
         member.lName,
