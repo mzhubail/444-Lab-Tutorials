@@ -45,8 +45,6 @@ export class AuthService {
       // Set member
       this.memberSub =  membersService.members$
         .subscribe(members => {
-          console.log('Entered with members', members);
-
           const member = members.find(m => m.id === this.user?.uid);
           if (!member) {
             console.error(
