@@ -19,13 +19,13 @@
     <ion-spinner name="circular"></ion-spinner>
   </div>
 
-  <div *ngIf="activities !== undefined">
+  <ng-container *ngIf="activities !== undefined">
     <div *ngIf="activities.length === 0" class="ion-padding">
       No activities are stored in the database. <br>
       Try adding a new one!
     </div>
     <ion-accordion-group *ngIf="activities.length !== 0">
-      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filter()"> </ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filter()" />
       <ion-accordion
           *ngFor="let a of filteredActivities; let index=index"
           [value]="a.id"
@@ -66,5 +66,5 @@
 
       </ion-accordion>
     </ion-accordion-group>
-  </div>
+  </ng-container>
 </ion-content>
