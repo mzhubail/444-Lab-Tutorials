@@ -23,7 +23,7 @@ export interface Activity {
 export class ActivityService {
   activityRef;
   activities$: Observable<Activity[]>;
-  private activities!: Activity[];
+  activities!: Activity[];
 
   constructor(
     db: Firestore,
@@ -108,16 +108,19 @@ export class ActivityService {
 
 
   /**
-   * Check if the current user is already a participant in a given activity.
+   * Check if given member is already a participant in a given activity.
    *
-   * Does nothing if user is not logged in, or there is no activity with the
+   * Does nothing if memberId is not defined, or there is no activity with the
    * given id.
    *
-   * @param activityId id of activity
+   * @param activityId  id of activity
+   * @param mid         id of member
    */
-  public isParticipant(activityId: string | undefined) {
-    const uid = this.authService.user?.uid;
-    if (!uid)
+  public memberIsParticipant(
+    activityId: string | undefined,
+    mid: string | undefined
+  ) {
+    if (!mid)
       return;
 
     const activity = this.activities
@@ -127,7 +130,23 @@ export class ActivityService {
       return;
     }
 
-    return activity.participations?.includes(uid) ?? false;
+    return activity.participations?.includes(mid) ?? false;
+  }
+
+
+  /**
+   * Check if the current user is already a participant in a given activity.
+   *
+   * Does nothing if user is not logged in, or there is no activity with the
+   * given id.
+   *
+   * @param activityId id of activity
+   */
+  public isParticipant(activityId: string | undefined) {
+    return this.memberIsParticipant(
+      activityId,
+      this.authService.user?.uid,
+    );
   }
 
 

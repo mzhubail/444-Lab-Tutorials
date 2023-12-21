@@ -14,7 +14,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="ion-padding">
-    {{ participantId }}
+  <div class="loading-container" *ngIf="members === undefined">
+    <ion-label> Loading members please wait... </ion-label>
+    <ion-spinner name="circular"></ion-spinner>
   </div>
+
+  <div
+      class="ion-padding"
+      *ngIf="members !== undefined"
+      >
+    <div *ngIf="members.length === 0" class="ion-padding">
+      No members have participated in this activity.
+    </div>
+    <ion-list>
+      <ion-item
+          *ngFor="let m of members; let index=index"
+          style="line-height: 1.7"
+          >
+        {{ m.sid }} --- {{ m.fName }} {{ m.lName }}
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>
