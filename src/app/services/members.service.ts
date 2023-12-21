@@ -34,7 +34,6 @@ export class MembersService {
     this.members$ =
       collectionData(this.membersRef, { idField: 'id' }) as Observable<Member[]>;
 
-    this.members$.subscribe(console.log);
   }
 
   addMember(member: Member, password: string) {
