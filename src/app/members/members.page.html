@@ -33,8 +33,9 @@
       Try adding a new one!
     </div>
     <ion-accordion-group *ngIf="members.length !== 0">
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filter()" />
       <ion-accordion
-          *ngFor="let m of members; let index=index"
+          *ngFor="let m of filteredMembers; let index=index"
           [value]="m.id"
           >
         <ion-item slot="header"

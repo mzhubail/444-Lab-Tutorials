@@ -5,6 +5,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormComponent } from '../components/input-components';
 import { NumberValidator } from '../custom-validators';
+import { filterList } from '../utilities';
 
 @Component({
   selector: 'app-members',
@@ -18,6 +19,10 @@ export class MembersPage implements OnInit {
   members: Member[] | undefined;
   loginForm;
 
+  // Search functionality
+  filteredMembers: Member[] | undefined;
+  searchTerm = '';
+
   // Edit functionality
   editIndex = -1;
   editForm;
@@ -30,6 +35,7 @@ export class MembersPage implements OnInit {
   ) {
     membersService.members$.subscribe(data => {
       this.members = data;
+      this.filter();
     });
     this.loginForm = this.buildAddForm('', '', '', '', '', '', '',);
     this.editForm = this.buildEditForm('', '', '', '', '', '',);
@@ -152,5 +158,16 @@ export class MembersPage implements OnInit {
   _delete(id: string | undefined) {
     if (id)
       this.membersService.deleteMember(id);
+  }
+
+
+  filter() {
+    if (!this.members)
+      return;
+    this.filteredMembers = filterList(
+      this.members,
+      this.searchTerm,
+      m => [m.sid.toString(), m.fName, m.lName, m.email],
+    );
   }
 }
