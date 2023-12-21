@@ -26,7 +26,7 @@
     <div *ngIf="members.length === 0" class="ion-padding">
       No members have participated in this activity.
     </div>
-    <ion-list>
+    <ion-list *ngIf="members.length !== 0">
       <ion-item
           *ngFor="let m of members; let index=index"
           style="line-height: 1.7"

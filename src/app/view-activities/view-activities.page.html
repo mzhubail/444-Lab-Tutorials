@@ -50,7 +50,7 @@
             <ion-button
                 size="small"
                 (click)="activityService.participateInActivity(a.id)"
-                [disabled]="activityService.isParticipant(a.id)"
+                [disabled]="activityService.isParticipant(a.id) ?? true"
                 >
               Participate
             </ion-button>
