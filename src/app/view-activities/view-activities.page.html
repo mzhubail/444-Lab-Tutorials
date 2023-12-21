@@ -48,6 +48,7 @@
             <ion-button
                 size="small"
                 (click)="activityService.participateInActivity(a.id)"
+                [disabled]="activityService.isParticipant(a.id)"
                 >
               Participate
             </ion-button>

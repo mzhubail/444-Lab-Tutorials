@@ -23,6 +23,7 @@ export interface Activity {
 export class ActivityService {
   activityRef;
   activities$: Observable<Activity[]>;
+  private activities!: Activity[];
 
   constructor(
     db: Firestore,
@@ -36,6 +37,9 @@ export class ActivityService {
       { idField: 'id' }
     ) as Observable<Activity[]>;
 
+    this.activities$.subscribe(data => {
+      this.activities = data;
+    });
   }
 
   addActivity(activity: Activity) {
@@ -87,31 +91,43 @@ export class ActivityService {
    * @param activityId id of activity
    */
   participateInActivity(activityId: string | undefined) {
-    // Take last retrieved activities
-    // See https://stackoverflow.com/questions/37339016/get-current-value-from-observable-without-subscribing-just-want-value-one-time
-    this.activities$
-      .pipe(take(1))
-      .subscribe(activities => {
-        const uid = this.authService.user?.uid;
-        if (!uid)
-          return;
+    const uid = this.authService.user?.uid;
+    if (!uid)
+      return;
 
-        const activity = activities.find(a => a.id === activityId);
-        if (!activity) {
-          console.error(`Failed to find activity ${activityId}`);
-          return;
-        }
+    if (this.isParticipant(activityId)) {
+      this.alertDuplicateParticipation();
+      return;
+    }
 
-        if (activity.participations?.includes(uid)) {
-          this.alertDuplicateParticipation();
-          return;
-        }
+    const activityDoc = doc(this.activityRef, activityId);
+    updateDoc(activityDoc, {
+      participations: arrayUnion(uid),
+    });
+  }
 
-        const activityDoc = doc(this.activityRef, activityId);
-        updateDoc(activityDoc, {
-          participations: arrayUnion(uid),
-        });
-      });
+
+  /**
+   * Check if the current user is already a participant in a given activity.
+   *
+   * Does nothing if user is not logged in, or there is no activity with the
+   * given id.
+   *
+   * @param activityId id of activity
+   */
+  public isParticipant(activityId: string | undefined) {
+    const uid = this.authService.user?.uid;
+    if (!uid)
+      return;
+
+    const activity = this.activities
+      .find(a => a.id === activityId);
+    if (!activity) {
+      console.error(`Failed to find activity ${activityId}`);
+      return;
+    }
+
+    return activity.participations?.includes(uid) ?? false;
   }
 
 
