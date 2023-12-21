@@ -27,8 +27,9 @@
       No members have participated in this activity.
     </div>
     <ion-list *ngIf="members.length !== 0">
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="searchFilter()" />
       <ion-item
-          *ngFor="let m of members; let index=index"
+          *ngFor="let m of searchFilteredMembers; let index=index"
           style="line-height: 1.7"
           >
         {{ m.sid }} --- {{ m.fName }} {{ m.lName }}

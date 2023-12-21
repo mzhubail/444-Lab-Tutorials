@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
 import { Member, MembersService } from '../services/members.service';
+import { filterList } from '../utilities';
 
 @Component({
   selector: 'app-view-participants',
@@ -12,6 +13,10 @@ import { Member, MembersService } from '../services/members.service';
 export class ViewParticipantsPage implements OnInit {
   activityId: string;
   members!: Member[];
+
+  // Search functionality
+  searchFilteredMembers!: Member[];
+  searchTerm = '';
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -31,9 +36,18 @@ export class ViewParticipantsPage implements OnInit {
         .filter(member =>
           activityService.memberIsParticipant(this.activityId, member.id)
         );
+      this.searchFilter();
     });
   }
 
   ngOnInit() {
+  }
+
+  searchFilter () {
+    this.searchFilteredMembers = filterList(
+      this.members,
+      this.searchTerm,
+      m => [m.sid.toString(), m.fName, m.lName],
+    );
   }
 }
