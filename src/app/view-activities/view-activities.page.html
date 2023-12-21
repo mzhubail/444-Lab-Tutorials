@@ -44,6 +44,8 @@
             Venue: {{ a.venue }} <br>
           </div>
 
+          <br>
+
           <div class="button-container">
             <ion-button
                 size="small"
@@ -51,6 +53,12 @@
                 [disabled]="activityService.isParticipant(a.id)"
                 >
               Participate
+            </ion-button>
+            <ion-button
+                size="small"
+                routerLink="/view-participants/{{a.id}}"
+                >
+                View Participants
             </ion-button>
           </div>
         </div>

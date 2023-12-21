@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'view-activities',
     loadChildren: () => import('./view-activities/view-activities.module').then( m => m.ViewActivitiesPageModule)
   },
+  {
+    path: 'view-participants/:id',
+    loadChildren: () => import('./view-participants/view-participants.module').then( m => m.ViewParticipantsPageModule)
+  },
 ];
 
 @NgModule({
