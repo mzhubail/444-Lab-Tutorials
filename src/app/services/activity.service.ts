@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CollectionReference, Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { CollectionReference, Firestore, addDoc, arrayUnion, collection, collectionData, deleteDoc, doc, documentId, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Observable, take } from 'rxjs';
 import { faker } from '@faker-js/faker';
+import { getDocs } from '@firebase/firestore';
+import { AuthService } from './auth.service';
+import { AlertController } from '@ionic/angular';
 
 export interface Activity {
   id?: string,
@@ -11,6 +14,7 @@ export interface Activity {
   venue: string,
   partCount: number,
   topic: string,
+  participations?: string[],
 }
 
 @Injectable({
@@ -22,6 +26,8 @@ export class ActivityService {
 
   constructor(
     db: Firestore,
+    public authService: AuthService,
+    public alertController: AlertController,
   ) {
     this.activityRef =
       collection(db, 'activities') as CollectionReference<Activity>;
@@ -68,5 +74,53 @@ export class ActivityService {
 
   deleteActivity(id: string) {
     return deleteDoc(doc(this.activityRef, id));
+  }
+
+
+  /**
+   * Make current user participate in a given activity.
+   *
+   * Does nothing if user is not logged in, or there is no activity with the
+   * given id.  Displays Error alert in case the user is already a participant
+   * in this activity.
+   *
+   * @param activityId id of activity
+   */
+  participateInActivity(activityId: string | undefined) {
+    // Take last retrieved activities
+    // See https://stackoverflow.com/questions/37339016/get-current-value-from-observable-without-subscribing-just-want-value-one-time
+    this.activities$
+      .pipe(take(1))
+      .subscribe(activities => {
+        const uid = this.authService.user?.uid;
+        if (!uid)
+          return;
+
+        const activity = activities.find(a => a.id === activityId);
+        if (!activity) {
+          console.error(`Failed to find activity ${activityId}`);
+          return;
+        }
+
+        if (activity.participations?.includes(uid)) {
+          this.alertDuplicateParticipation();
+          return;
+        }
+
+        const activityDoc = doc(this.activityRef, activityId);
+        updateDoc(activityDoc, {
+          participations: arrayUnion(uid),
+        });
+      });
+  }
+
+
+  async alertDuplicateParticipation() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Already participant in this activity.',
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }

@@ -43,7 +43,17 @@
             Activity topic: {{ a.topic }} <br>
             Venue: {{ a.venue }} <br>
           </div>
+
+          <div class="button-container">
+            <ion-button
+                size="small"
+                (click)="activityService.participateInActivity(a.id)"
+                >
+              Participate
+            </ion-button>
+          </div>
         </div>
+
       </ion-accordion>
     </ion-accordion-group>
   </div>
