@@ -10,6 +10,12 @@ export function filterList<T>(
   return originalList.filter(elem => {
     const strings = extractor(elem);
     for (let i = 0; i < strings.length; i++) {
+      // Some attributes may be null, due to invalid data
+      if (!strings[i]) {
+        console.warn('Encountered undefined/null', strings[i], 'in', strings);
+        continue;
+      }
+
       if (match(strings[i], searchTerm))
         return true;
     }
