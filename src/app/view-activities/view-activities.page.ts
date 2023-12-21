@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Activity, ActivityService } from '../services/activity.service';
+import { filterList } from '../utilities';
 
 @Component({
   selector: 'app-view-activities',
@@ -31,16 +32,10 @@ export class ViewActivitiesPage implements OnInit {
   }
 
   filter() {
-    if (this.searchTerm === '') {
-      this.filteredActivities = this.activities;
-      return;
-    }
-
-    this.filteredActivities =
-    this.activities.filter(
-      a => a.title.toLowerCase().includes(
-        this.searchTerm.toLowerCase()
-      )
-    )
+    this.filteredActivities = filterList(
+      this.activities,
+      this.searchTerm,
+      a => [a.title, a.topic, a.venue],
+    );
   }
 }
