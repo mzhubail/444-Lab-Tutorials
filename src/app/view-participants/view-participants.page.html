@@ -19,22 +19,23 @@
     <ion-spinner name="circular"></ion-spinner>
   </div>
 
-  <div
-      class="ion-padding"
-      *ngIf="members !== undefined"
-      >
+  <div *ngIf="members !== undefined">
     <div *ngIf="members.length === 0" class="ion-padding">
       No members have participated in this activity.
     </div>
-    <ion-list *ngIf="members.length !== 0">
+    <ng-container *ngIf="members.length !== 0">
+
       <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="searchFilter()" />
-      <ion-item
-          *ngFor="let m of searchFilteredMembers; let index=index"
-          style="line-height: 1.7"
-          >
-        {{ m.sid }} --- {{ m.fName }} {{ m.lName }}
-      </ion-item>
-    </ion-list>
+      <ion-list class="ion-padding">
+        <ion-item
+            *ngFor="let m of searchFilteredMembers; let index=index"
+            style="line-height: 1.7"
+            >
+          {{ m.sid }} --- {{ m.fName }} {{ m.lName }}
+        </ion-item>
+      </ion-list>
+
+    </ng-container>
   </div>
 
 </ion-content>
