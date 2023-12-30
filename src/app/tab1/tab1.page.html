@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Tab 1 </ion-title>
+    <ion-title>Tab 1</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,24 +16,31 @@
       <ion-input label="Serial" />
     </ion-item>
     <ion-item>
-      <ion-select label="Model" interface="action-sheet">
-        <ion-select-option> Version1 </ion-select-option>
-        <ion-select-option> Version2 </ion-select-option>
-        <ion-select-option> Version3 </ion-select-option>
+      <ion-select
+        label="Model"
+        interface="action-sheet"
+        [formControl]="form.controls.model"
+      >
+        <ion-select-option>Version1</ion-select-option>
+        <ion-select-option>Version2</ion-select-option>
+        <ion-select-option>Version3</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-segment>
-        <ion-segment-button> Light </ion-segment-button>
-        <ion-segment-button> Normal </ion-segment-button>
-        <ion-segment-button> Heavy </ion-segment-button>
+        <ion-segment-button>Light</ion-segment-button>
+        <ion-segment-button>Normal</ion-segment-button>
+        <ion-segment-button>Heavy</ion-segment-button>
       </ion-segment>
     </ion-item>
     <ion-item id="datetime-container">
       <ion-datetime presentation="year" />
     </ion-item>
     <ion-item>
-      <ion-button style="margin-left: auto">Submit</ion-button>
+      <ion-button style="margin-left: auto">
+        Submit
+        <ion-icon [name]="form.invalid ? 'close' : 'checkmark'" />
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
