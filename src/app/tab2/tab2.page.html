@@ -26,13 +26,15 @@
     </div>
 
     <ion-list *ngIf="devices.length !== 0">
-      <ion-item *ngFor="let device of devices">
-        <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
-        <ion-checkbox justify="start" labelPlacement="end">
-          History
-        </ion-checkbox>
-        <ion-button>Repair</ion-button>
-      </ion-item>
+      <ng-container *ngFor="let device of devices">
+        <ion-item>
+          <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
+          <ion-checkbox justify="start" labelPlacement="end">
+            History
+          </ion-checkbox>
+          <ion-button (click)="repairDevice(device)">Repair</ion-button>
+        </ion-item>
+      </ng-container>
     </ion-list>
   </ng-template>
 </ion-content>

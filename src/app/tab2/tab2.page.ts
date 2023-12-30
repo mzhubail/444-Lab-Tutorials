@@ -14,4 +14,8 @@ export class Tab2Page {
       this.devices = devices;
     });
   }
+
+  repairDevice(d: Device) {
+    this.fbService.repairDevice(d);
+  }
 }
