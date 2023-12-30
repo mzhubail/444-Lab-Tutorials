@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Tab 1</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fbService.addRandomDevice()">
+        Add random
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
