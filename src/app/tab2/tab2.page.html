@@ -41,7 +41,14 @@
           <ng-container *ngIf="countShifts(user).length === 0">
             No shifts!
           </ng-container>
-          <ion-icon *ngFor="let _ of countShifts(user)" name="play"></ion-icon>
+          <ion-button
+            #ref
+            (click)="animate($event.target)"
+            fill="clear"
+            *ngFor="let _ of countShifts(user)"
+          >
+            <ion-icon name="play" />
+          </ion-button>
         </ion-item>
       </ng-container>
     </ng-container>
