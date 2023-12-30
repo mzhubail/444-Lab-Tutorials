@@ -13,7 +13,7 @@ export class Tab1Page {
   public props: Partial<Device> = {
     weight: 'light',
   };
-  public year: string = '';
+  public year: string | undefined;
 
   constructor(
     formBuilder: FormBuilder,
@@ -36,7 +36,7 @@ export class Tab1Page {
     const serial = this.props.serial,
       weight = this.props.weight,
       model = this.form.value.model;
-    if (!serial || !weight || !model) return;
+    if (!serial || !weight || !model || !this.year) return;
 
     const year = new Date(this.year);
     this.fbService
