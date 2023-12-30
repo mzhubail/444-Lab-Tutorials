@@ -21,14 +21,29 @@
       There are no users in the database!
     </div>
     <ng-container *ngIf="users.length !== 0">
-      <ion-item *ngFor="let user of users">
-        <ion-label>{{ formatName(user.name) }}</ion-label>
-        <div>
-          <ion-checkbox justify="end" labelPlacement="start">
-            Detail
-          </ion-checkbox>
-        </div>
-      </ion-item>
+      <ng-container *ngFor="let user of users; let index=index">
+        <!-- User Item -->
+        <ion-item>
+          <ion-label>{{ formatName(user.name) }}</ion-label>
+          <div>
+            <ion-checkbox
+              justify="end"
+              labelPlacement="start"
+              [(ngModel)]="showUser[index]"
+            >
+              Detail
+            </ion-checkbox>
+          </div>
+        </ion-item>
+
+        <!-- User Shifts -->
+        <ion-item class="user-shifts" *ngIf="showUser[index]">
+          <ng-container *ngIf="countShifts(user).length === 0">
+            No shifts!
+          </ng-container>
+          <ion-icon *ngFor="let _ of countShifts(user)" name="play"></ion-icon>
+        </ion-item>
+      </ng-container>
     </ng-container>
   </ng-container>
 </ion-content>
