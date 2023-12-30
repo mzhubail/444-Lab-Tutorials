@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Tab 2</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +11,24 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="loading-container" *ngIf="users === undefined">
+    <ion-label>Loading members please wait...</ion-label>
+    <ion-spinner name="circular"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="users !== undefined">
+    <div class="ion-padding" *ngIf="users.length === 0">
+      There are no users in the database!
+    </div>
+    <ng-container *ngIf="users.length !== 0">
+      <ion-item *ngFor="let user of users">
+        <ion-label>{{ formatName(user.name) }}</ion-label>
+        <div>
+          <ion-checkbox justify="end" labelPlacement="start">
+            Detail
+          </ion-checkbox>
+        </div>
+      </ion-item>
+    </ng-container>
+  </ng-container>
 </ion-content>

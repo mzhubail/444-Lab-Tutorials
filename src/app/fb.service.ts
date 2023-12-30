@@ -4,9 +4,12 @@ import {
   Firestore,
   addDoc,
   collection,
+  collectionData,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 export interface User {
+  id?: string;
   name: string;
   shift: boolean[];
   quantity: number;
@@ -25,9 +28,11 @@ export class FBService {
   };
 
   usersCollection;
+  users$: Observable<User[]>;
 
   constructor(db: Firestore) {
     this.usersCollection = collection(db, 'Users') as CollectionReference<User>;
+    this.users$ = collectionData(this.usersCollection, { idField: 'id' });
   }
 
   addUser(user: User) {
