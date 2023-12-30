@@ -74,16 +74,7 @@ export class Tab4Page implements OnInit {
     const drop1 = this.zone1.nativeElement.getBoundingClientRect();
     const drop2 = this.zone2.nativeElement.getBoundingClientRect();
     const value = item.nativeElement.id;
-    if (this.isInZone(endX, endY, drop1)) {
-      // if (this.list1.indexOf(value) != -1) {
-      //   this.list1.splice(this.list1.indexOf(value), 1);
-      // }
-      // if (this.list2.indexOf(value) != -1) {
-      //   this.list2.splice(this.list2.indexOf(value), 1);
-      // }
-      // this.list1.push(value);
-      console.log('Entered 1');
-    } else if (this.isInZone(endX, endY, drop2)) {
+    if (this.isInZone(endX, endY, drop2)) {
       console.log('Entered 2 with value', value);
       if (this.list1.indexOf(value) != -1) {
         this.list1.splice(this.list1.indexOf(value), 1);
