@@ -6,7 +6,7 @@
     <ion-title>Tab 1</ion-title>
     <ion-buttons slot="end">
       <ion-button disabled="true" color="danger">
-        <ion-icon name="close" />
+        <ion-icon [name]="form.valid ? 'checkmark' : 'close'" />
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -25,6 +25,7 @@
         label="Enter User"
         placeholder="Your user name"
         labelPlacement="stacked"
+        [formControl]="form.controls.user"
       />
     </ion-item>
     <ion-item>
@@ -38,7 +39,9 @@
       </ion-select>
     </ion-item>
     <div id="verify-container">
-      <ion-text color="danger">Error</ion-text>
+      <ion-text [color]="form.valid ? '' : 'danger'">
+        {{ form.valid ? 'Pending' : 'Error' }}
+      </ion-text>
       <ion-button>Verify</ion-button>
       <ion-text></ion-text>
     </div>
