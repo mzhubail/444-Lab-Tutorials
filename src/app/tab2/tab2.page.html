@@ -31,9 +31,10 @@
         <ion-item>
           <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
           <ion-checkbox
+            #ref
             justify="start"
             labelPlacement="end"
-            (ionChange)="toggleHistory(index, device)"
+            (ionChange)="toggleHistory(ref.checked, index, device)"
           >
             History
           </ion-checkbox>

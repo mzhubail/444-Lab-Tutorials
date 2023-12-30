@@ -22,8 +22,13 @@ export class Tab2Page {
     this.fbService.repairDevice(d);
   }
 
-  toggleHistory(index: number, device: Device) {
-    const x = this.fbService.getHistory(device.serial);
-    this.histories[index] = x;
+  toggleHistory(checked: boolean, index: number, device: Device) {
+    if (checked) {
+      if (this.histories[index] !== undefined) return;
+      const x = this.fbService.getHistory(device.serial);
+      this.histories[index] = x;
+    } else {
+      delete this.histories[index];
+    }
   }
 }
