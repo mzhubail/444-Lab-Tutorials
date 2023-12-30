@@ -6,7 +6,9 @@ import {
   collection,
   collectionData,
   doc,
+  query,
   setDoc,
+  where,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -19,6 +21,7 @@ export interface Device {
 }
 
 export interface History {
+  id?: string;
   serial: string;
   repairDate: Date;
   cost: number;
@@ -77,4 +80,10 @@ export class FbService {
     Normal: 500,
     Heavy: 700,
   };
+
+  getHistory(serial: string): Observable<History[]> {
+    const q = query(this.historyCollection, where('serial', '==', serial));
+    const history$ = collectionData(q, { idField: 'id'});
+    return history$;
+  }
 }

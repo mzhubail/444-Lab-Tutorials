@@ -26,13 +26,28 @@
     </div>
 
     <ion-list *ngIf="devices.length !== 0">
-      <ng-container *ngFor="let device of devices">
+      <ng-container *ngFor="let device of devices; let index=index">
+        <!-- Deivce -->
         <ion-item>
           <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
-          <ion-checkbox justify="start" labelPlacement="end">
+          <ion-checkbox
+            justify="start"
+            labelPlacement="end"
+            (ionChange)="toggleHistory(index, device)"
+          >
             History
           </ion-checkbox>
           <ion-button (click)="repairDevice(device)">Repair</ion-button>
+        </ion-item>
+        <!-- Device History -->
+        <ion-item *ngIf="histories[index] !== undefined">
+          <ng-template [ngIf]="(histories[index] | async)?.length === 0">
+            No repairs where found
+          </ng-template>
+          <ng-container *ngFor="let history of histories[index] | async">
+            {{ history.serial }} --- {{ history.repairDate }}
+            <br />
+          </ng-container>
         </ion-item>
       </ng-container>
     </ion-list>
