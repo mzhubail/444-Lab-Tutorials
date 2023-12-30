@@ -28,16 +28,6 @@
         [formControl]="form.controls.user"
       />
     </ion-item>
-    <ion-item>
-      <ion-select label="Select shift" interface="action-sheet">
-        <ion-select-option
-          *ngFor="let entry of serv.shifts | keyvalue"
-          [value]="entry.key"
-        >
-          {{ entry.value }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
     <div id="verify-container">
       <ion-text [color]="form.valid ? '' : 'danger'">
         {{ form.valid ? 'Pending' : 'Error' }}
@@ -45,6 +35,18 @@
       <ion-button>Verify</ion-button>
       <ion-text></ion-text>
     </div>
+    <ion-item-divider></ion-item-divider>
+
+    <ion-item>
+      <ion-label>Select shift</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let entry of serv.shifts | keyvalue; let index=index">
+      <ion-checkbox [(ngModel)]="props.shift[index]">
+        {{ entry.value }}
+      </ion-checkbox>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+
     <ion-item>
       <ion-label>Quantity</ion-label>
       <ion-text>
