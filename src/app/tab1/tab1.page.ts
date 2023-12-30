@@ -47,6 +47,17 @@ export class Tab1Page {
     this.verifyColor = this.form.valid ? '' : 'danger';
   }
 
+  reset() {
+    this.props = {
+      quantity: 0,
+      approved: false,
+      shift: [false, false, false],
+    };
+    this.form.reset();
+    this.verifyMessage = '';
+    this.verifyColor = '';
+  }
+
   /// Firebase related ///
   submitAnyways() {
     const { approved, quantity, shift } = this.props;
