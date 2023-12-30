@@ -29,10 +29,8 @@
       />
     </ion-item>
     <div id="verify-container">
-      <ion-text [color]="form.valid ? '' : 'danger'">
-        {{ form.valid ? 'Pending' : 'Error' }}
-      </ion-text>
-      <ion-button>Verify</ion-button>
+      <ion-text [color]="verifyColor">{{ verifyMessage }}</ion-text>
+      <ion-button (click)="updateVerifyMessage()">Verify</ion-button>
       <ion-text></ion-text>
     </div>
     <ion-item-divider></ion-item-divider>

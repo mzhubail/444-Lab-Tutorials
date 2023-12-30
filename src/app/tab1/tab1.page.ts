@@ -15,6 +15,9 @@ export class Tab1Page {
     shift: [false, false, false],
   };
 
+  verifyMessage = '';
+  verifyColor = '';
+
   constructor(public serv: FBService, public formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       user: [
@@ -32,5 +35,10 @@ export class Tab1Page {
   delatQuant(nudge: number) {
     if (this.props.quantity === undefined) return;
     this.props.quantity += nudge;
+  }
+
+  updateVerifyMessage() {
+    this.verifyMessage = this.form.valid ? 'Pending' : 'Error';
+    this.verifyColor = this.form.valid ? '' : 'danger';
   }
 }
