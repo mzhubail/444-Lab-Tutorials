@@ -25,7 +25,7 @@
         label="Enter User"
         placeholder="Your user name"
         labelPlacement="stacked"
-        [formControl]="form.controls.user"
+        [formControl]="form.controls.name"
       />
     </ion-item>
     <div id="verify-container">
@@ -68,7 +68,7 @@
     </ion-item>
     <ion-item>
       <ion-button>Submit</ion-button>
-      <ion-button>Submit anyways</ion-button>
+      <ion-button (click)="submitAnyways()">Submit anyways</ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

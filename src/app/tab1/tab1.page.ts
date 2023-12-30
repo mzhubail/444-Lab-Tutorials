@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FBService } from '../fb.service';
+import { FBService, User } from '../fb.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -20,7 +20,7 @@ export class Tab1Page {
 
   constructor(public serv: FBService, public formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      user: [
+      name: [
         '',
         [
           Validators.required,
@@ -40,5 +40,20 @@ export class Tab1Page {
   updateVerifyMessage() {
     this.verifyMessage = this.form.valid ? 'Pending' : 'Error';
     this.verifyColor = this.form.valid ? '' : 'danger';
+  }
+
+  /// Firebase related ///
+  submitAnyways() {
+    const { approved, quantity, shift } = this.props;
+    const { name } = this.form.value;
+    const user: User = {
+      approved: approved,
+      name: name as string,
+      quantity: quantity,
+      shift: shift,
+      status: this.form.valid ? 'Pending' : 'Error',
+    };
+
+    this.serv.addUser(user);
   }
 }

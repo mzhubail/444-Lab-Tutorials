@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  CollectionReference,
+  Firestore,
+  addDoc,
+  collection,
+} from '@angular/fire/firestore';
 
 export interface User {
   name: string;
@@ -18,5 +24,13 @@ export class FBService {
     night: 'Night Shift',
   };
 
-  constructor() {}
+  usersCollection;
+
+  constructor(db: Firestore) {
+    this.usersCollection = collection(db, 'Users') as CollectionReference<User>;
+  }
+
+  addUser(user: User) {
+    return addDoc(this.usersCollection, user);
+  }
 }
