@@ -5,6 +5,7 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
   doc,
   query,
   setDoc,
@@ -83,7 +84,13 @@ export class FbService {
 
   getHistory(serial: string): Observable<History[]> {
     const q = query(this.historyCollection, where('serial', '==', serial));
-    const history$ = collectionData(q, { idField: 'id'});
+    const history$ = collectionData(q, { idField: 'id' });
     return history$;
+  }
+
+  deleteDevice(device: Device) {
+    if (!device.id) return;
+    const deviceDoc = doc(this.devicesCollection, device.id);
+    return deleteDoc(deviceDoc);
   }
 }

@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Tab 2</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="deleteAllChecked()">Delete All</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -22,24 +25,33 @@
       <br />
       Try addding a new one!
       <br />
+      <br />
       <ion-button routerLink="/tabs/tab1">Add a new device</ion-button>
     </div>
 
     <ion-list *ngIf="devices.length !== 0">
       <ng-container *ngFor="let device of devices; let index=index">
-        <!-- Deivce -->
-        <ion-item>
-          <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
-          <ion-checkbox
-            #ref
-            justify="start"
-            labelPlacement="end"
-            (ionChange)="toggleHistory(ref.checked, index, device)"
-          >
-            History
-          </ion-checkbox>
-          <ion-button (click)="repairDevice(device)">Repair</ion-button>
-        </ion-item>
+        <ion-item-sliding>
+          <!-- Deivce -->
+          <ion-item>
+            <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
+            <ion-checkbox
+              #ref
+              justify="start"
+              labelPlacement="end"
+              (ionChange)="toggleHistory(ref.checked, index, device)"
+            >
+              History
+            </ion-checkbox>
+            <ion-button (click)="repairDevice(device)">Repair</ion-button>
+            <!-- Delete Option -->
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="danger" (click)="_delete(device)">
+              Delete
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
         <!-- Device History -->
         <ion-item *ngIf="histories[index] !== undefined">
           <ng-template [ngIf]="(histories[index] | async)?.length === 0">

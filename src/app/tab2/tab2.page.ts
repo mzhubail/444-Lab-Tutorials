@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Device, History, FbService } from '../fb.service';
-import { IonCheckbox } from '@ionic/angular';
+import { AlertController, IonCheckbox } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,7 +12,10 @@ export class Tab2Page {
   devices!: Device[];
   histories: { [index: number]: Observable<History[]> } = {};
 
-  constructor(public fbService: FbService) {
+  constructor(
+    public fbService: FbService,
+    public alertController: AlertController,
+  ) {
     fbService.devices$.subscribe((devices) => {
       this.devices = devices;
     });
@@ -30,5 +33,36 @@ export class Tab2Page {
     } else {
       delete this.histories[index];
     }
+  }
+
+  _delete(device: Device) {
+    this.fbService.deleteDevice(device);
+  }
+
+  async deleteAllChecked() {
+    const alert = await this.alertController.create({
+      header: 'Confirmation',
+      message: 'Are you sure you want to delete all the selected devices?',
+      buttons: [
+        'Cancel',
+        {
+          text: 'Confirm',
+          handler: () => {
+            this._deleteAllChecked();
+          },
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  _deleteAllChecked() {
+    Object.keys(this.histories)
+      .map((index) => Number(index))
+      .map((index) => this.devices[index])
+      .forEach((device) => {
+        this.fbService.deleteDevice(device);
+      });
+    this.histories = {};
   }
 }
