@@ -7,8 +7,10 @@ import {
   doc,
   setDoc,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 export interface Device {
+  id?: string;
   serial: string;
   model: string;
   weight: string;
@@ -26,12 +28,14 @@ export interface History {
 })
 export class FbService {
   public devicesCollection;
+  public devices$: Observable<Device[]>;
 
   constructor(public db: Firestore) {
     this.devicesCollection = collection(
       db,
       'Devices',
     ) as CollectionReference<Device>;
+    this.devices$ = collectionData(this.devicesCollection, { idField: 'id' });
   }
 
   addDevice(d: Device) {

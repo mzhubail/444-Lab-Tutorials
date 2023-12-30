@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Tab 2</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +11,20 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="loading-container" *ngIf="devices === undefined">
+    <ion-label>Loading members please wait...</ion-label>
+    <ion-spinner name="circular"></ion-spinner>
+  </div>
+
+  <ng-template [ngIf]="devices !== undefined">
+    <div class="ion-padding" *ngIf="devices.length === 0">
+      There are no devices in the database.
+      <br />
+      Try addding a new one!
+      <br />
+      <ion-button routerLink="/tabs/tab1">Add a new device</ion-button>
+    </div>
+
+    <ion-list *ngIf="devices.length !== 0">{{ devices | json }}</ion-list>
+  </ng-template>
 </ion-content>
