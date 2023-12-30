@@ -22,4 +22,12 @@
     </div>
   </div>
   <div class="target" id="zone2" #zone2>{{ list2 | json }}</div>
+
+  <ion-button
+    (click)="verifySolution()"
+    [disabled]="list2.length !== 4"
+    size="small"
+  >
+    Verify Solution
+  </ion-button>
 </ion-content>

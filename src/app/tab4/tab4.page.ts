@@ -7,7 +7,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { Gesture, GestureController } from '@ionic/angular';
+import { AlertController, Gesture, GestureController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -29,6 +29,7 @@ export class Tab4Page implements OnInit {
   constructor(
     private gestureCtrl: GestureController,
     private changeDetectorRef: ChangeDetectorRef,
+    private alertController: AlertController,
   ) {}
 
   ngOnInit() {}
@@ -125,5 +126,26 @@ export class Tab4Page implements OnInit {
       return false;
     }
     return true;
+  }
+
+  verifySolution() {
+    const word = this.list2.reduce((prev, curr) => prev + curr);
+
+    let h, m;
+    if (word === 'HOME') {
+      h = 'Congrats';
+      m = 'Your solution was correct';
+    } else {
+      h = 'You failed';
+      m = 'Your solution was not correct';
+    }
+
+    this.alertController
+      .create({
+        header: h,
+        message: m,
+        buttons: ['OK'],
+      })
+      .then((a) => a.present());
   }
 }
