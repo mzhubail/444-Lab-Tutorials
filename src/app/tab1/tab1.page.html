@@ -67,7 +67,9 @@
       </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-button>Submit</ion-button>
+      <ion-button (click)="submit()" [disabled]="form.invalid">
+        Submit
+      </ion-button>
       <ion-button (click)="submitAnyways()">Submit anyways</ion-button>
     </ion-item>
   </ion-list>
