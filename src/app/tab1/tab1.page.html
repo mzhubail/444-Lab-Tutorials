@@ -48,17 +48,23 @@
     <ion-item>
       <ion-label>Quantity</ion-label>
       <ion-text>
-        <ion-button fill="clear">
-          <ion-icon name="caret-up"></ion-icon>
+        <ion-button fill="clear" (click)="delatQuant(+1)">
+          <ion-icon name="caret-up" />
         </ion-button>
-        <ion-button fill="clear" color="dark">{{ 0 }}</ion-button>
-        <ion-button fill="clear">
-          <ion-icon name="caret-down"></ion-icon>
+        <ion-button fill="clear" color="dark">{{ props.quantity }}</ion-button>
+        <ion-button
+          fill="clear"
+          (click)="delatQuant(-1)"
+          [disabled]="props.quantity === 0"
+        >
+          <ion-icon name="caret-down" />
         </ion-button>
       </ion-text>
     </ion-item>
     <ion-item>
-      <ion-toggle alignment="end">Do you approve?</ion-toggle>
+      <ion-toggle alignment="end" [(ngModel)]="props.approved">
+        Do you approve?
+      </ion-toggle>
     </ion-item>
     <ion-item>
       <ion-button>Submit</ion-button>

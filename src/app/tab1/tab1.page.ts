@@ -9,6 +9,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class Tab1Page {
   public form;
+  public props = {
+    quantity: 0,
+    approved: false,
+    shift: [false, false, false],
+  };
 
   constructor(public serv: FBService, public formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -21,5 +26,11 @@ export class Tab1Page {
         ],
       ],
     });
+  }
+
+  /** Modify Quantitiy by a given amount */
+  delatQuant(nudge: number) {
+    if (this.props.quantity === undefined) return;
+    this.props.quantity += nudge;
   }
 }
