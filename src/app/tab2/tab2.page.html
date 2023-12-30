@@ -25,6 +25,14 @@
       <ion-button routerLink="/tabs/tab1">Add a new device</ion-button>
     </div>
 
-    <ion-list *ngIf="devices.length !== 0">{{ devices | json }}</ion-list>
+    <ion-list *ngIf="devices.length !== 0">
+      <ion-item *ngFor="let device of devices">
+        <ion-label slot="start">Serial# {{ device.serial }}</ion-label>
+        <ion-checkbox justify="start" labelPlacement="end">
+          History
+        </ion-checkbox>
+        <ion-button>Repair</ion-button>
+      </ion-item>
+    </ion-list>
   </ng-template>
 </ion-content>
