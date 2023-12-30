@@ -10,4 +10,16 @@
       <ion-title size="large">Tab 4</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="target" #zone1>
+    <div
+      #item
+      id="{{i}}"
+      [class]="['letter', index % 2 == 0 ? 'green' : 'red']"
+      *ngFor="let i of list1; let index=index"
+    >
+      {{ i }}
+    </div>
+  </div>
+  <div class="target" id="zone2" #zone2>{{ list2 | json }}</div>
 </ion-content>

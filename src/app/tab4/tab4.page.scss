@@ -1,0 +1,28 @@
+$zone-height: 36vh;
+
+.letter {
+  display: inline-block;
+  height: $zone-height;
+  width: 20vw;
+
+  color: black;
+}
+
+.green {
+  background-color: yellowgreen;
+}
+.red {
+  background-color: orangered;
+}
+
+.target {
+  border: dashed 3px var(--color);
+  height: $zone-height;
+}
+
+// Center text
+.letter,
+#zone2 {
+  text-align: center;
+  padding-top: calc($zone-height / 2 - 1rem);
+}
