@@ -5,6 +5,8 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
+  doc,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -37,5 +39,11 @@ export class FBService {
 
   addUser(user: User) {
     return addDoc(this.usersCollection, user);
+  }
+
+  deleteUser(user: User) {
+    if (user.id === undefined) return;
+    const userDoc = doc(this.usersCollection, user.id);
+    return deleteDoc(userDoc);
   }
 }

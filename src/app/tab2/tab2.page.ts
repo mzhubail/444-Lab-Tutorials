@@ -63,4 +63,8 @@ export class Tab2Page {
       },
     );
   }
+
+  _delete(user: User) {
+    this.serv.deleteUser(user);
+  }
 }
