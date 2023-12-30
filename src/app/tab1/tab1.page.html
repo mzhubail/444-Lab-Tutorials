@@ -13,7 +13,7 @@
 
   <ion-list>
     <ion-item>
-      <ion-input label="Serial" />
+      <ion-input label="Serial" [(ngModel)]="props.serial" />
     </ion-item>
     <ion-item>
       <ion-select
@@ -27,17 +27,21 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-segment>
+      <ion-segment [(ngModel)]="props.weight">
         <ion-segment-button>Light</ion-segment-button>
         <ion-segment-button>Normal</ion-segment-button>
         <ion-segment-button>Heavy</ion-segment-button>
       </ion-segment>
     </ion-item>
     <ion-item id="datetime-container">
-      <ion-datetime presentation="year" />
+      <ion-datetime presentation="year" [(ngModel)]="year" />
     </ion-item>
     <ion-item>
-      <ion-button style="margin-left: auto">
+      <ion-button
+        style="margin-left: auto"
+        [disabled]="form.invalid"
+        (click)="addDevice()"
+      >
         Submit
         <ion-icon [name]="form.invalid ? 'close' : 'checkmark'" />
       </ion-button>
