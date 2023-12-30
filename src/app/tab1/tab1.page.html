@@ -1,8 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button disabled="true" color="danger">Reset</ion-button>
+    </ion-buttons>
+    <ion-title>Tab 1</ion-title>
+    <ion-buttons slot="end">
+      <ion-button disabled="true" color="danger">
+        <ion-icon name="close" />
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +19,47 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Enter User"
+        placeholder="Your user name"
+        labelPlacement="stacked"
+      />
+    </ion-item>
+    <ion-item>
+      <ion-select label="Select shift" interface="action-sheet">
+        <ion-select-option
+          *ngFor="let entry of serv.shifts | keyvalue"
+          [value]="entry.key"
+        >
+          {{ entry.value }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div id="verify-container">
+      <ion-text color="danger">Error</ion-text>
+      <ion-button>Verify</ion-button>
+      <ion-text></ion-text>
+    </div>
+    <ion-item>
+      <ion-label>Quantity</ion-label>
+      <ion-text>
+        <ion-button fill="clear">
+          <ion-icon name="caret-up"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="dark">{{ 0 }}</ion-button>
+        <ion-button fill="clear">
+          <ion-icon name="caret-down"></ion-icon>
+        </ion-button>
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-toggle alignment="end">Do you approve?</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-button>Submit</ion-button>
+      <ion-button>Submit anyways</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
