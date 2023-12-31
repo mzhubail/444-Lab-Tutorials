@@ -7,7 +7,10 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { doc } from '@angular/fire/firestore';
 import { Gesture, GestureController, IonItem } from '@ionic/angular';
+
+declare var dynamics: any;
 
 @Component({
   selector: 'app-tab3',
@@ -138,5 +141,36 @@ export class Tab3Page implements AfterViewInit {
       return false;
     }
     return true;
+  }
+
+  //// Animation related ////
+  printInOrder() {
+    const els = document.querySelectorAll('#zone1 div');
+    console.log(els);
+
+    const func = (index: number = 0) => {
+      this.animate(els[index], () => {
+        if (index + 1 < els.length) func(index + 1);
+      });
+    };
+
+    func();
+  }
+
+  animate(el: any, onComplete: any) {
+    // const el = document.querySelector('#zone1 div:last-of-type');
+    // console.log(el);
+    dynamics.animate(
+      el,
+      {
+        translateX: 100,
+        // rotateZ: ['-5deg', '5deg'],
+      },
+      {
+        type: dynamics.linear,
+        duration: 1000,
+        complete: onComplete,
+      },
+    );
   }
 }
