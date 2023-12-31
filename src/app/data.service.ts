@@ -5,6 +5,8 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
+  doc,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -37,5 +39,10 @@ export class DataService {
 
   addPriningRequest(req: PrintingRequest) {
     return addDoc(this.reqRef, req);
+  }
+
+  deleteRequest(reqId: string) {
+    const reqDoc = doc(this.reqRef, reqId);
+    return deleteDoc(reqDoc);
   }
 }

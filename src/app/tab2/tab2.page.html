@@ -30,7 +30,7 @@
       <ion-searchbar placeholder="Enter paper size..." />
       <ion-item *ngFor="let req of requests">
         <ion-label>{{ req.copiesCount }} -- {{ req.paperSize }}</ion-label>
-        <ion-button color="danger">Delete</ion-button>
+        <ion-button color="danger" (click)="_delete(req)">Delete</ion-button>
       </ion-item>
     </ion-list>
   </ng-container>
