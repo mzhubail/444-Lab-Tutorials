@@ -1,8 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Tab 2</ion-title>
+    <ion-buttons slot="end">
+      <ion-checkbox labelPlacement="end" style="margin-right: 1rem">
+        Sort
+      </ion-checkbox>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +16,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="loading-container" *ngIf="requests === undefined">
+    <ion-label>Loading printing requests please wait...</ion-label>
+    <ion-spinner name="circular"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="requests !== undefined">
+    <div class="ion-padding" *ngIf="requests.length === 0">
+      There are no requests currently in the database.
+    </div>
+
+    <ion-list *ngIf="requests.length !== 0">
+      <ion-searchbar placeholder="Enter paper size..." />
+      <ion-item *ngFor="let req of requests">
+        <ion-label>{{ req.copiesCount }} -- {{ req.paperSize }}</ion-label>
+        <ion-button color="danger">Delete</ion-button>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 </ion-content>
