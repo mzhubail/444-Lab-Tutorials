@@ -158,6 +158,20 @@ export class Tab3Page implements AfterViewInit {
     func();
   }
 
+  printInReverseOrder() {
+    const els = document.querySelectorAll('#zone1 div');
+    console.log(els);
+
+    const func = (index: number = els.length - 1) => {
+      if (index >= els.length || index < 0) return;
+      this.animate(els[index], () => {
+        func(index - 1);
+      });
+    };
+
+    func();
+  }
+
   animate(el: any, onComplete: any) {
     // const el = document.querySelector('#zone1 div:last-of-type');
     // console.log(el);
@@ -166,6 +180,7 @@ export class Tab3Page implements AfterViewInit {
       {
         translateX: 100,
         // rotateZ: ['-5deg', '5deg'],
+        opacity: '50%',
       },
       {
         type: dynamics.linear,
