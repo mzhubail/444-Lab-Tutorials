@@ -47,37 +47,6 @@ export class Tab1Page {
   }
 
   sendRequest() {
-    this.dataService
-      .addPriningRequest(this.props)
-      .then(() => {
-        this.alertSuccess();
-      })
-      .catch(() => {
-        this.alertFailure();
-      });
-  }
-
-  alertSuccess() {
-    this.alertController
-      .create({
-        header: 'Success',
-        message: 'Your printing request was added successfully',
-        buttons: ['OK'],
-      })
-      .then((a) => {
-        a.present();
-      });
-  }
-
-  alertFailure() {
-    this.alertController
-      .create({
-        header: 'Error',
-        message: 'Could not add your request',
-        buttons: ['Cancel'],
-      })
-      .then((a) => {
-        a.present();
-      });
+    this.dataService.addPriningRequest(this.props);
   }
 }
