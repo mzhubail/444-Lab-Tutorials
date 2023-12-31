@@ -37,7 +37,7 @@
         [(ngModel)]="props.searchTerm"
         (ionInput)="filter()"
       />
-      <ion-item *ngFor="let req of filteredRequests">
+      <ion-item *ngFor="let req of filteredRequests" [title]="req.inkQuality">
         <ion-label>{{ req.copiesCount }} -- {{ req.paperSize }}</ion-label>
         <ion-button color="danger" (click)="_delete(req)">Delete</ion-button>
       </ion-item>

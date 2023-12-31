@@ -30,6 +30,11 @@ export class Tab1Page {
       return;
     }
 
+    // Note that input with type number allows for fractional numbers (we don't
+    // want that)
+    this.props.copiesCount = Math.floor(this.props.copiesCount);
+    if (this.props.copiesCount === 0) this.props.copiesCount = 1;
+
     const alert = await this.alertController.create({
       header: 'Confirmation',
       message: 'Are you sure you want to send this request?',
