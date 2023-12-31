@@ -13,6 +13,7 @@ export class Tab2Page {
 
   props = {
     isSorted: false,
+    searchTerm: '',
   };
 
   constructor(
@@ -28,6 +29,8 @@ export class Tab2Page {
   //// Sort related ////
   filter() {
     let l = [...this.requests];
+
+    // Sort
     if (this.props.isSorted) {
       l.sort((_a, _b): number => {
         const a = _a.copiesCount,
@@ -40,6 +43,12 @@ export class Tab2Page {
           return 0;
         }
       });
+    }
+
+    // Search
+    const searchTerm = this.props.searchTerm;
+    if (searchTerm !== '') {
+      l = l.filter((req) => req.paperSize === searchTerm);
     }
 
     this.filteredRequests = l;

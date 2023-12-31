@@ -32,7 +32,11 @@
     </div>
 
     <ion-list *ngIf="requests.length !== 0">
-      <ion-searchbar placeholder="Enter paper size..." />
+      <ion-searchbar
+        placeholder="Enter paper size..."
+        [(ngModel)]="props.searchTerm"
+        (ionInput)="filter()"
+      />
       <ion-item *ngFor="let req of filteredRequests">
         <ion-label>{{ req.copiesCount }} -- {{ req.paperSize }}</ion-label>
         <ion-button color="danger" (click)="_delete(req)">Delete</ion-button>
