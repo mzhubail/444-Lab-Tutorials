@@ -149,8 +149,9 @@ export class Tab3Page implements AfterViewInit {
     console.log(els);
 
     const func = (index: number = 0) => {
+      if (index >= els.length || index < 0) return;
       this.animate(els[index], () => {
-        if (index + 1 < els.length) func(index + 1);
+        func(index + 1);
       });
     };
 
