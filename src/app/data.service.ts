@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  CollectionReference,
+  Firestore,
+  addDoc,
+  collection,
+} from '@angular/fire/firestore';
 
 export interface PrintingRequest {
   copiesCount: number;
@@ -15,5 +21,16 @@ export class DataService {
   PAPERSIZES = ['A3', 'A4', 'A5', 'B5', 'letter'];
   INKQUALITY = ['low', 'medium', 'high'];
 
-  constructor() {}
+  reqRef;
+
+  constructor(db: Firestore) {
+    this.reqRef = collection(
+      db,
+      'Printing Requests',
+    ) as CollectionReference<PrintingRequest>;
+  }
+
+  addPriningRequest(req: PrintingRequest) {
+    return addDoc(this.reqRef, req);
+  }
 }

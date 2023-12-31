@@ -21,5 +21,11 @@ export class Tab1Page {
   constructor(public dataService: DataService) {}
 
   submit() {
+    if (!this.isCopiesCountValid()) {
+      console.error('Invalid');
+      return;
+    }
+
+    this.dataService.addPriningRequest(this.props);
   }
 }
