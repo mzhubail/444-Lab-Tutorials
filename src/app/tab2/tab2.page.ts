@@ -9,6 +9,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab2Page {
   requests!: PrintingRequest[];
+  filteredRequests!: PrintingRequest[];
+
+  props = {
+    isSorted: false,
+  };
 
   constructor(
     public dataService: DataService,
@@ -16,7 +21,28 @@ export class Tab2Page {
   ) {
     dataService.requests$.subscribe((requests) => {
       this.requests = requests;
+      this.filter();
     });
+  }
+
+  //// Sort related ////
+  filter() {
+    let l = [...this.requests];
+    if (this.props.isSorted) {
+      l.sort((_a, _b): number => {
+        const a = _a.copiesCount,
+          b = _b.copiesCount;
+        if (a < b) {
+          return -1;
+        } else if (a > b) {
+          return +1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    this.filteredRequests = l;
   }
 
   //// Delete related ////
