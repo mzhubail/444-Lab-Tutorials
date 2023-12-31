@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title>Tab 1</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +11,32 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list>
+    <ion-item>
+      <ion-input label="Number of copies" type="Number" />
+    </ion-item>
+    <ion-item>
+      <ion-select label="Paper size" interface="action-sheet">
+        <ion-select-option *ngFor="let paperSize of dataService.PAPERSIZES">
+          {{paperSize}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Ink quality" interface="action-sheet">
+        <ion-select-option *ngFor="let quality of dataService.INKQUALITY">
+          {{ quality }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-toggle alignment="end">Do you want print date on paper?</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle alignment="end">Do you want it with borders?</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-button style="margin-left: auto">submit</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
