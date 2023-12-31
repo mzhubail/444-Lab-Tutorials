@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Tab 3</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +11,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div class="ion-padding">
+    <ion-list-header>List 1</ion-list-header>
+    <div class="target" #zone1>
+      <div *ngFor="let n of list1" #drag>{{ n }}</div>
+    </div>
+
+    <ion-list-header>List 2</ion-list-header>
+    <div class="target" #zone2>
+      <div *ngFor="let n of list2" #drag>{{ n }}</div>
+    </div>
+  </div>
 </ion-content>

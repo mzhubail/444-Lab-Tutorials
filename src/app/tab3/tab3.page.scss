@@ -1,0 +1,13 @@
+.target {
+  height: 30vh;
+  margin-bottom: 3rem;
+}
+
+.target {
+  border: dashed 3px var(--color);
+
+  div {
+    height: 1.5rem;
+    border-bottom: 1px solid var(--color);
+  }
+}
