@@ -14,12 +14,12 @@
   <div class="ion-padding">
     <ion-list-header>List 1</ion-list-header>
     <div class="target" #zone1>
-      <div *ngFor="let n of list1" #drag>{{ n }}</div>
+      <div [id]="n" *ngFor="let n of list1" #drag>{{ n }}</div>
     </div>
 
     <ion-list-header>List 2</ion-list-header>
     <div class="target" #zone2>
-      <div *ngFor="let n of list2" #drag>{{ n }}</div>
+      <div [id]="n" *ngFor="let n of list2" #drag>{{ n }}</div>
     </div>
   </div>
 </ion-content>

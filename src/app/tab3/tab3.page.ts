@@ -104,15 +104,30 @@ export class Tab3Page implements AfterViewInit {
   checkDropZoneHover(x: number, y: number, item: ElementRef) {
     const drop1 = this.zone1.nativeElement.getBoundingClientRect();
     const drop2 = this.zone2.nativeElement.getBoundingClientRect();
-    if (this.isInZone(x, y, drop1)) {
-      this.zone1.nativeElement.style.backgroundColor = '#009fff';
-    } else if (this.isInZone(x, y, drop2)) {
-      this.zone2.nativeElement.style.backgroundColor = '#009fff';
-    } else {
-      this.zone1.nativeElement.style.backgroundColor = 'transparent';
-      this.zone2.nativeElement.style.backgroundColor = 'transparent';
+    // if (this.isInZone(x, y, drop1)) {
+    //   this.zone1.nativeElement.style.backgroundColor = '#009fff';
+    // } else if (this.isInZone(x, y, drop2)) {
+    //   this.zone2.nativeElement.style.backgroundColor = '#009fff';
+    // } else {
+    //   this.zone1.nativeElement.style.backgroundColor = 'transparent';
+    //   this.zone2.nativeElement.style.backgroundColor = 'transparent';
+    // }
+    let curr = item.nativeElement.id;
+    if (this.list2.indexOf(curr) !== -1) {
+      if (this.isInZone(x, y, drop1)) {
+        item.nativeElement.style.backgroundColor = 'red';
+      } else {
+        item.nativeElement.style.backgroundColor = 'transparent';
+      }
+    } else if (this.list1.indexOf(curr) !== -1) {
+      if (this.isInZone(x, y, drop2)) {
+        item.nativeElement.style.backgroundColor = 'red';
+      } else {
+        item.nativeElement.style.backgroundColor = 'transparent';
+      }
     }
-    item.nativeElement.style.backgroundColor = 'red';
+    // item.nativeElement.style.backgroundColor = 'red';
+    // console.log(item.nativeElement.innerHTML);
   }
 
   isInZone(x: number, y: number, dropzone: any) {
