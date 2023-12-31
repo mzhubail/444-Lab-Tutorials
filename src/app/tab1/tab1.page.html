@@ -13,30 +13,63 @@
 
   <ion-list>
     <ion-item>
-      <ion-input label="Number of copies" type="Number" />
+      <ion-input
+        label="Number of copies"
+        type="Number"
+        [(ngModel)]="props.copiesCount"
+      />
+    </ion-item>
+    <ion-item *ngIf="!isCopiesCountValid()">
+      <ion-note color="danger">
+        Number of copies has to be a number between 1 and 10
+      </ion-note>
     </ion-item>
     <ion-item>
-      <ion-select label="Paper size" interface="action-sheet">
-        <ion-select-option *ngFor="let paperSize of dataService.PAPERSIZES">
-          {{paperSize}}
+      <ion-select
+        label="Paper size"
+        interface="action-sheet"
+        [(ngModel)]="props.paperSize"
+      >
+        <ion-select-option
+          *ngFor="let paperSize of dataService.PAPERSIZES"
+          [value]="paperSize"
+        >
+          {{ paperSize }}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-select label="Ink quality" interface="action-sheet">
-        <ion-select-option *ngFor="let quality of dataService.INKQUALITY">
+      <ion-select
+        label="Ink quality"
+        interface="action-sheet"
+        [(ngModel)]="props.inkQuality"
+      >
+        <ion-select-option
+          *ngFor="let quality of dataService.INKQUALITY"
+          [value]="quality"
+        >
           {{ quality }}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-toggle alignment="end">Do you want print date on paper?</ion-toggle>
+      <ion-toggle alignment="end" [(ngModel)]="props.withBorders">
+        Do you want print date on paper?
+      </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-toggle alignment="end">Do you want it with borders?</ion-toggle>
+      <ion-toggle alignment="end" [(ngModel)]="props.hasPrintDate">
+        Do you want it with borders?
+      </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-button style="margin-left: auto">submit</ion-button>
+      <ion-button
+        style="margin-left: auto"
+        (click)="submit()"
+        [disabled]="!isCopiesCountValid()"
+      >
+        submit
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
