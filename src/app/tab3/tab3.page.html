@@ -15,15 +15,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="ion-padding">
-    <ion-list-header>List 1</ion-list-header>
-    <div class="target" #zone1 id="zone1">
-      <div [id]="n" *ngFor="let n of list1" #drag>{{ n }}</div>
+  <div class="loading-container" *ngIf="requests === undefined">
+    <ion-label>Loading printing requests please wait...</ion-label>
+    <ion-spinner name="circular"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="requests !== undefined">
+    <div class="ion-padding" *ngIf="requests.length === 0">
+      There are no requests currently in the database.
     </div>
 
-    <ion-list-header>List 2</ion-list-header>
-    <div class="target" #zone2>
-      <div [id]="n" *ngFor="let n of list2" #drag>{{ n }}</div>
+    <div class="ion-padding" *ngIf="requests.length !== 0">
+      <ion-list-header>List 1</ion-list-header>
+      <div class="target" #zone1 id="zone1">
+        <div [id]="n" *ngFor="let n of list1" #drag>{{ n }}</div>
+      </div>
+
+      <ion-list-header>List 2</ion-list-header>
+      <div class="target" #zone2>
+        <div [id]="n" *ngFor="let n of list2" #drag>{{ n }}</div>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </ion-content>

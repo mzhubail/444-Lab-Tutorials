@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { doc } from '@angular/fire/firestore';
 import { Gesture, GestureController, IonItem } from '@ionic/angular';
+import { DataService, PrintingRequest } from '../data.service';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 
 declare var dynamics: any;
 
@@ -17,7 +19,7 @@ declare var dynamics: any;
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
 })
-export class Tab3Page implements AfterViewInit {
+export class Tab3Page {
   list1 = ['Ths', 'Th8t', '1lah', 'jfwklblah'];
   list2 = ['Th888is', '341That', 'blah', 'bl9ah'];
 
@@ -29,14 +31,31 @@ export class Tab3Page implements AfterViewInit {
   @ViewChildren('drag', { read: ElementRef })
   items!: QueryList<ElementRef<HTMLElement>>;
 
+  requests!: PrintingRequest[];
+
   constructor(
     private gestureCtrl: GestureController,
     private changeDetectorRef: ChangeDetectorRef,
-  ) {}
+    dataService: DataService,
+  ) {
+    firstValueFrom(dataService.requests$).then((requests) => {
+      this.requests = requests;
+      this.list1 = requests.map(
+        (req) => ` ${req.paperSize}, ${req.inkQuality} -- ${req.copiesCount}`,
+      );
+      this.list2 = [];
 
-  ngAfterViewInit() {
-    this.updateGestures();
+      // Note: Added delayed to ensure the interface has already been
+      // initialized with values from firestore
+      setTimeout(() => {
+        this.updateGestures();
+      }, 500);
+    });
   }
+
+  // ngAfterViewInit() {
+  //   this.updateGestures();
+  // }
 
   updateGestures() {
     this.gesturearray.map((gesture) => gesture.destroy());
