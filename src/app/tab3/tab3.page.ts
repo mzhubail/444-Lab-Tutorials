@@ -10,7 +10,7 @@ import {
 import { doc } from '@angular/fire/firestore';
 import { Gesture, GestureController, IonItem } from '@ionic/angular';
 import { DataService, PrintingRequest } from '../data.service';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { Subject, firstValueFrom, lastValueFrom } from 'rxjs';
 
 declare var dynamics: any;
 
@@ -158,28 +158,32 @@ export class Tab3Page {
     const els = document.querySelectorAll('#zone1 div');
     console.log(els);
 
-    const func = (index: number = 0) => {
+    const sub = new Subject<number>();
+
+    sub.subscribe((index) => {
       if (index >= els.length || index < 0) return;
       this.animate(els[index], () => {
-        func(index + 1);
+        sub.next(index + 1);
       });
-    };
+    });
 
-    func();
+    sub.next(0);
   }
 
   printInReverseOrder() {
     const els = document.querySelectorAll('#zone1 div');
     console.log(els);
 
-    const func = (index: number = els.length - 1) => {
+    const sub = new Subject<number>();
+
+    sub.subscribe((index) => {
       if (index >= els.length || index < 0) return;
       this.animate(els[index], () => {
-        func(index - 1);
+        sub.next(index - 1);
       });
-    };
+    });
 
-    func();
+    sub.next(els.length - 1);
   }
 
   animate(el: any, onComplete: any) {
