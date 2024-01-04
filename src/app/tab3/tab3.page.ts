@@ -154,53 +154,39 @@ export class Tab3Page {
   }
 
   //// Animation related ////
-  printInOrder() {
+  async printInOrder() {
     const els = document.querySelectorAll('#zone1 div');
-    console.log(els);
 
-    const sub = new Subject<number>();
-
-    sub.subscribe((index) => {
-      if (index >= els.length || index < 0) return;
-      this.animate(els[index], () => {
-        sub.next(index + 1);
-      });
-    });
-
-    sub.next(0);
+    for (let i = 0; i < els.length; i++) {
+      await this.animate(els[i]);
+    }
   }
 
-  printInReverseOrder() {
+  async printInReverseOrder() {
     const els = document.querySelectorAll('#zone1 div');
-    console.log(els);
 
-    const sub = new Subject<number>();
-
-    sub.subscribe((index) => {
-      if (index >= els.length || index < 0) return;
-      this.animate(els[index], () => {
-        sub.next(index - 1);
-      });
-    });
-
-    sub.next(els.length - 1);
+    for (let i = els.length - 1; i >= 0; i--) {
+      await this.animate(els[i]);
+    }
   }
 
-  animate(el: any, onComplete: any) {
-    // const el = document.querySelector('#zone1 div:last-of-type');
-    // console.log(el);
-    el.style.opacity = '50%';
+  animate(el: any) {
+    return new Promise<void>((resolve) => {
+      // const el = document.querySelector('#zone1 div:last-of-type');
+      // console.log(el);
+      el.style.opacity = '50%';
 
-    dynamics.animate(
-      el,
-      {
-        translateX: 100,
-      },
-      {
-        type: dynamics.linear,
-        duration: 1000,
-        complete: onComplete,
-      },
-    );
+      dynamics.animate(
+        el,
+        {
+          translateX: 100,
+        },
+        {
+          type: dynamics.linear,
+          duration: 1000,
+          complete: resolve,
+        },
+      );
+    });
   }
 }
